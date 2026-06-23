@@ -8,12 +8,16 @@ alwaysApply: true
 Full rules: **AGENTS.md** in project root. If context is missing, ask the user to add `@AGENTS.md`.
 
 ## Workflow
-1. Update `tracker.md` with verified active vacancies (respect User preferences).
+1. Update `tracker.md` with verified active vacancies (respect User preferences). **Table only** — details in `applications/<slug>/vacancy.md`.
 2. User picks numbers → create `applications/<slug>/vacancy.md` + `cover.md`.
 3. **hh.ru:** cover only; resume on platform from `cv-base-ru.md` — no `cv.md`/PDF unless asked.
-4. **Other platforms:** `cv.md` after user agrees → PDF only after user approves `cv.md`.
-5. Paths: always `applications/company-role` with **forward slashes** (Windows too).
-6. Skip `applications/_*` folders in tracker numbering (examples only).
+4. **Other platforms:** `cv.md` when needed → PDF only after user approves `cv.md` (`generate_cv_unified.py`).
+5. Cover PDF (`generate_cover_pdf.py`) — only on explicit user request.
+6. Paths: always `applications/company-role` with **forward slashes** (Windows too).
+7. Skip `applications/_*` folders in tracker numbering (examples only).
+
+## Tracker statuses
+`new` · `prep` · `ready` · `applied` — delete row when vacancy is closed; `skip` is transient before deletion.
 
 ## Content
 - No fabrication; honest gaps; cover 3–5 sentences; cover language = vacancy posting language.

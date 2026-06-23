@@ -25,11 +25,11 @@ Your real application folders under `applications/` are **gitignored** — draft
 
 **Open [ONBOARDING.md](ONBOARDING.md)** — step-by-step first setup (~15–30 minutes, breaks OK).
 
+**Full flow:** [flow-diagram.svg](flow-diagram.svg) (image) · [FLOW.md](FLOW.md) (diagrams in Cursor)
+
 Short version: install Cursor → open **this folder** → fill in your CV and rules → send the helper your first message.
 
 More about chat and keys: [CURSOR.md](CURSOR.md).
-
-→ **Russian:** [README.ru.md](README.ru.md)
 
 ---
 
@@ -62,23 +62,16 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 | **[ONBOARDING.md](ONBOARDING.md)** | First-time setup — **start here** |
 | **[AGENTS.md](AGENTS.md)** | Rules for the helper (what jobs to find, how to write). **Fill in for you** |
 | **[CURSOR.md](CURSOR.md)** | How to open chat and which keys to press |
+| **[FLOW.md](FLOW.md)** | Workflow diagrams |
 | **cv-base-en.md** | Your main CV (English) — source for everything |
-| **cv-base-ru.md** | Same in Russian, including hh |
-| **tracker.md** | Your job list |
-| **generate_cv_unified.py** | Small program: text CV → one-page PDF |
+| **cv-base-ru.md** | Russian resume template for hh.ru (section headers stay in Russian) |
+| **tracker.md** | Your job list (table only) |
+| **generate_cv_unified.py** | Text CV → one-page PDF |
+| **generate_cover_pdf.py** | Cover letter PDF — only when you ask |
 | **applications/** | One subfolder per job |
 | **applications/_example-do-not-track/** | Example only — don’t add to the tracker |
 
 `.md` files are normal text — open and edit in Cursor like a notepad.
-
----
-
-## If you got a zip file
-
-1. Unzip it.
-2. In Cursor: **File → Open Folder**.
-3. Pick the folder where you **immediately see** `README.md` and `AGENTS.md`.  
-   If you only see another folder inside, open that inner folder instead.
 
 ---
 
@@ -87,12 +80,9 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 | Word | Means |
 |------|--------|
 | `new` | Found, not started yet |
-| `cv_draft` | CV draft needs your review |
-| `cv_approved` | CV OK |
-| `cover_done` | Cover letter OK |
-| `pdf_ready` | PDF built |
+| `prep` | Drafting cv/cover or waiting for your edits |
+| `ready` | CV PDF ready (or hh: cover ready) |
 | `applied` | You already applied |
-| `skip` | Not pursuing — remove the row later |
 
 ---
 

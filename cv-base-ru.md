@@ -1,36 +1,36 @@
-_(Удалите эту строку. Для PDF сохраняйте заголовки `## О себе`, `## Опыт работы` и т.д.; на hh.ru вставьте текст на сайт.)_
+_(Delete this line. Keep Russian section headers below for hh.ru. Paste the body into your hh profile.)_
 
-Имя Фамилия
-Должность
-Город, страна · [Telegram](https://t.me/your_username) · [you@email.com](mailto:you@email.com) · [сайт](https://example.com)
+First Last
+Job Title
+City, Country · [Telegram](https://t.me/your_username) · [you@email.com](mailto:you@email.com) · [site](https://example.com)
 
 ## О себе
 
-Два–три предложения: опыт, сферы, чем занимаетесь (планирование, релизы, стейкхолдеры). Замените этот шаблон на свой текст.
+Two or three sentences: years of experience, domains, what you deliver (planning, releases, stakeholders). Replace this placeholder with your real summary.
 
 ## Опыт работы
 
-### Должность — [Название компании](https://example.com)
+### Role — [Company Name](https://example.com)
 2022–2024
 
-Одна строка о компании или продукте.
+One-line description of the company or product.
 
-- Результат или зона ответственности с конкретикой
-- Ещё пункт: масштаб, команда, инструменты или метрика
+- Achievement or responsibility with a concrete outcome
+- Another bullet: scope, team size, tools, or metric if you have one
 
-### Предыдущая роль — [Компания](https://example.com)
+### Previous Role — [Company](https://example.com)
 2019–2022
 
-Кратко о компании.
+Short company tagline.
 
-- Пункт
-- Пункт
+- Bullet
+- Bullet
 
 ## Навыки
 
-- **Планирование и поставка**: бэклог, релизы, риски и зависимости
-- **Коммуникация**: статусы, заказчики, стейкхолдеры
-- **Команда**: фасилитация, найм, онбординг (только если правда)
+- **Planning & delivery**: backlogs, releases, risk and dependency tracking
+- **Communication**: status reports, clients or stakeholders
+- **Team**: facilitation, hiring, onboarding (only if true for you)
 
 ## Инструменты
 
@@ -38,9 +38,9 @@ Jira, Notion, Slack, Google Workspace
 
 ## Языки
 
-Русский — родной
+Russian — Native
 English — B2
 
 ## Образование
 
-ВУЗ — специальность, год
+University — Degree, Year

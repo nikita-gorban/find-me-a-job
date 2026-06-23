@@ -1,99 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 1120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 1180">
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
       <path d="M0,0 L9,3 L0,6 Z" fill="#334155"/>
     </marker>
     <style type="text/css"><![CDATA[
-
-    .title { font: 700 20px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #0f172a; }
-    .sub   { font: 12px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #64748b; }
-    .sec   { font: 700 14px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #1e40af; }
-    .t     { font: 13px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #0f172a; }
-    .ts    { font: 11px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #475569; }
-    .box-start { fill: #dbeafe; stroke: #2563eb; stroke-width: 2; }
-    .box-end   { fill: #dcfce7; stroke: #16a34a; stroke-width: 2; }
-    .box-you   { fill: #fef3c7; stroke: #d97706; stroke-width: 2; }
-    .box-ai    { fill: #ede9fe; stroke: #7c3aed; stroke-width: 2; }
-    .box-sys   { fill: #f8fafc; stroke: #334155; stroke-width: 2; }
-    .box-dec   { fill: #ffffff; stroke: #64748b; stroke-width: 2; }
-    .arr  { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
-    .seg  { stroke: #334155; stroke-width: 2; fill: none; }
-    .dash { stroke: #cbd5e1; stroke-width: 1.5; stroke-dasharray: 6,4; fill: none; }
-    .legend-ai  { fill: #ede9fe; stroke: #7c3aed; stroke-width: 1.5; }
-    .legend-you { fill: #fef3c7; stroke: #d97706; stroke-width: 1.5; }
-    .legend-sys { fill: #f8fafc; stroke: #334155; stroke-width: 1.5; }
+      .title { font: 700 22px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 14px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #64748b; }
+      .section { font: 700 16px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #1e40af; }
+      .box-start { fill: #dbeafe; stroke: #2563eb; stroke-width: 2; }
+      .box-end { fill: #dcfce7; stroke: #16a34a; stroke-width: 2; }
+      .box-you { fill: #fef3c7; stroke: #d97706; stroke-width: 2; }
+      .box-ai { fill: #ede9fe; stroke: #7c3aed; stroke-width: 2; }
+      .box-sys { fill: #f8fafc; stroke: #334155; stroke-width: 2; }
+      .box-decision { fill: #ffffff; stroke: #64748b; stroke-width: 2; }
+      .text { font: 13px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #0f172a; }
+      .text-sm { font: 11px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #475569; }
+      .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .legend-ai { fill: #ede9fe; stroke: #7c3aed; }
+      .legend-you { fill: #fef3c7; stroke: #d97706; }
+      .legend-sys { fill: #f8fafc; stroke: #334155; }
     ]]></style>
   </defs>
-  <rect width="860" height="1120" fill="#ffffff"/>
-  <rect x="40"  y="62" width="16" height="16" class="legend-ai"  rx="3"/>
-  <rect x="230" y="62" width="16" height="16" class="legend-you" rx="3"/>
-  <rect x="316" y="62" width="16" height="16" class="legend-sys" rx="3"/>
-  <rect x="170" y="112" width="520" height="50" class="box-start" rx="6"/>
-  <line x1="430" y1="162" x2="430" y2="188" class="arr"/>
-  <rect x="150" y="188" width="560" height="44" class="box-you" rx="6"/>
-  <line x1="430" y1="232" x2="430" y2="260" class="arr"/>
-  <polygon points="430,260 520,298 430,336 340,298" class="box-dec"/>
-  <line x1="340" y1="298" x2="220" y2="298" class="seg"/>
-  <rect x="30" y="276" width="190" height="44" class="box-sys" rx="6"/>
-  <line x1="125" y1="320" x2="125" y2="360" class="seg"/>
-  <line x1="125" y1="360" x2="430" y2="360" class="seg"/>
-  <line x1="430" y1="336" x2="430" y2="360" class="seg"/>
-  <line x1="430" y1="360" x2="430" y2="382" class="arr"/>
-  <rect x="130" y="382" width="600" height="52" class="box-ai" rx="6"/>
-  <line x1="40" y1="450" x2="820" y2="450" class="dash"/>
-  <rect x="190" y="484" width="480" height="44" class="box-ai" rx="6"/>
-  <line x1="430" y1="528" x2="430" y2="554" class="arr"/>
-  <rect x="170" y="554" width="520" height="44" class="box-you" rx="6"/>
-  <line x1="430" y1="598" x2="430" y2="624" class="arr"/>
-  <rect x="130" y="624" width="600" height="52" class="box-ai" rx="6"/>
-  <line x1="430" y1="676" x2="430" y2="702" class="arr"/>
-  <rect x="190" y="702" width="480" height="44" class="box-you" rx="6"/>
-  <line x1="430" y1="746" x2="430" y2="776" class="arr"/>
-  <polygon points="430,776 526,816 430,856 334,816" class="box-dec"/>
-  <line x1="334" y1="816" x2="200" y2="816" class="seg"/>
-  <rect x="20" y="794" width="180" height="44" class="box-sys" rx="6"/>
-  <line x1="110" y1="838" x2="110" y2="898" class="seg"/>
-  <line x1="526" y1="816" x2="640" y2="816" class="seg"/>
-  <rect x="640" y="794" width="200" height="44" class="box-sys" rx="6"/>
-  <line x1="740" y1="838" x2="740" y2="898" class="seg"/>
-  <line x1="110" y1="898" x2="430" y2="898" class="seg"/>
-  <line x1="740" y1="898" x2="430" y2="898" class="seg"/>
-  <line x1="430" y1="898" x2="430" y2="924" class="arr"/>
-  <rect x="190" y="924" width="480" height="44" class="box-you" rx="6"/>
-  <line x1="430" y1="968" x2="430" y2="994" class="arr"/>
-  <rect x="230" y="994" width="400" height="44" class="box-end" rx="6"/>
-  <text x="430" y="28" text-anchor="middle" class="title">Job Finder Kit - &#1082;&#1072;&#1082; &#1101;&#1090;&#1086; &#1088;&#1072;&#1073;&#1086;&#1090;&#1072;&#1077;&#1090;</text>
-  <text x="430" y="48" text-anchor="middle" class="sub">&#1055;&#1072;&#1087;&#1082;&#1072; + Cursor + &#1087;&#1086;&#1084;&#1086;&#1097;&#1085;&#1080;&#1082; (&#1048;&#1048;). &#1042;&#1099; &#1087;&#1088;&#1086;&#1074;&#1077;&#1088;&#1103;&#1077;&#1090;&#1077; &#1080; &#1089;&#1072;&#1084;&#1080; &#1086;&#1090;&#1082;&#1083;&#1080;&#1082;&#1072;&#1077;&#1090;&#1077;&#1089;&#1100;.</text>
-  <text x="62" y="74" text-anchor="start" class="ts">&#1055;&#1086;&#1084;&#1086;&#1097;&#1085;&#1080;&#1082; &#1074; Cursor</text>
-  <text x="252" y="74" text-anchor="start" class="ts">&#1042;&#1099;</text>
-  <text x="338" y="74" text-anchor="start" class="ts">&#1060;&#1072;&#1081;&#1083;&#1099; / &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1072;</text>
-  <text x="40" y="100" text-anchor="start" class="sec">&#1040;. &#1055;&#1077;&#1088;&#1074;&#1099;&#1081; &#1079;&#1072;&#1087;&#1091;&#1089;&#1082; (&#1086;&#1076;&#1080;&#1085; &#1088;&#1072;&#1079;)</text>
-  <text x="430" y="132" text-anchor="middle" class="t">&#1056;&#1072;&#1089;&#1087;&#1072;&#1082;&#1086;&#1074;&#1072;&#1090;&#1100; &#1087;&#1072;&#1087;&#1082;&#1091;, &#1091;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1080;&#1090;&#1100; Cursor</text>
-  <text x="430" y="149" text-anchor="middle" class="ts">File - Open Folder - &#1101;&#1090;&#1072; &#1087;&#1072;&#1087;&#1082;&#1072; (&#1075;&#1076;&#1077; &#1083;&#1077;&#1078;&#1080;&#1090; README)</text>
-  <text x="430" y="215" text-anchor="middle" class="t">&#1047;&#1072;&#1087;&#1086;&#1083;&#1085;&#1080;&#1090;&#1100; AGENTS.md &#1080; cv-base (&#1074;&#1072;&#1096;&#1077; &#1088;&#1077;&#1079;&#1102;&#1084;&#1077;)</text>
-  <text x="430" y="302" text-anchor="middle" class="t">&#1053;&#1091;&#1078;&#1077;&#1085; PDF?</text>
-  <text x="280" y="290" text-anchor="middle" class="ts">&#1076;&#1072;</text>
-  <text x="125" y="293" text-anchor="middle" class="ts">Python</text>
-  <text x="125" y="309" text-anchor="middle" class="ts">ONBOARDING &#1096;&#1072;&#1075; 4</text>
-  <text x="528" y="350" text-anchor="start" class="ts">&#1085;&#1077;&#1090; / &#1090;&#1086;&#1083;&#1100;&#1082;&#1086; hh</text>
-  <text x="430" y="403" text-anchor="middle" class="t">&#1055;&#1077;&#1088;&#1074;&#1099;&#1081; &#1095;&#1072;&#1090; &#1074; Cursor: @AGENTS.md</text>
-  <text x="430" y="421" text-anchor="middle" class="ts">&#1076;&#1086;&#1073;&#1072;&#1074;&#1080;&#1090;&#1100; &#1074;&#1072;&#1082;&#1072;&#1085;&#1089;&#1080;&#1080; &#1074; tracker.md</text>
-  <text x="430" y="446" text-anchor="middle" class="sub">&#1076;&#1072;&#1083;&#1077;&#1077; &#8212; &#1087;&#1086;&#1074;&#1090;&#1086;&#1088;&#1103;&#1077;&#1090;&#1089;&#1103; &#1076;&#1083;&#1103; &#1082;&#1072;&#1078;&#1076;&#1086;&#1081; &#1074;&#1072;&#1082;&#1072;&#1085;&#1089;&#1080;&#1080;</text>
-  <text x="40" y="472" text-anchor="start" class="sec">&#1041;. &#1050;&#1072;&#1078;&#1076;&#1099;&#1081; &#1086;&#1090;&#1082;&#1083;&#1080;&#1082;</text>
-  <text x="430" y="511" text-anchor="middle" class="t">&#1042;&#1072;&#1082;&#1072;&#1085;&#1089;&#1080;&#1080; &#1074; tracker.md (&#1090;&#1072;&#1073;&#1083;&#1080;&#1094;&#1072; &#1089; &#1085;&#1086;&#1084;&#1077;&#1088;&#1072;&#1084;&#1080;)</text>
-  <text x="430" y="581" text-anchor="middle" class="t">&#1042;&#1099;: &#1085;&#1072;&#1079;&#1099;&#1074;&#1072;&#1077;&#1090;&#1077; &#1085;&#1086;&#1084;&#1077;&#1088; &#1074;&#1072;&#1082;&#1072;&#1085;&#1089;&#1080;&#1080; - &#1085;&#1072;&#1087;&#1088;&#1080;&#1084;&#1077;&#1088; 3 &#1080; 7</text>
-  <text x="430" y="645" text-anchor="middle" class="t">&#1055;&#1086;&#1084;&#1086;&#1097;&#1085;&#1080;&#1082; &#1089;&#1086;&#1079;&#1076;&#1072;&#1105;&#1090; &#1087;&#1072;&#1087;&#1082;&#1091; applications/&#1082;&#1086;&#1084;&#1087;&#1072;&#1085;&#1080;&#1103;-&#1088;&#1086;&#1083;&#1100;/</text>
-  <text x="430" y="662" text-anchor="middle" class="ts">vacancy.md, cover.md, cv.md (&#1077;&#1089;&#1083;&#1080; &#1085;&#1077; hh)</text>
-  <text x="430" y="729" text-anchor="middle" class="t">&#1042;&#1099; &#1095;&#1080;&#1090;&#1072;&#1077;&#1090;&#1077;, &#1087;&#1088;&#1072;&#1074;&#1080;&#1090;&#1077;, &#1075;&#1086;&#1074;&#1086;&#1088;&#1080;&#1090;&#1077; OK</text>
-  <text x="430" y="820" text-anchor="middle" class="t">&#1043;&#1076;&#1077; &#1086;&#1090;&#1082;&#1083;&#1080;&#1082;?</text>
-  <text x="267" y="808" text-anchor="middle" class="ts">hh.ru</text>
-  <text x="110" y="811" text-anchor="middle" class="ts">cover.md + &#1088;&#1077;&#1079;&#1102;&#1084;&#1077;</text>
-  <text x="110" y="827" text-anchor="middle" class="ts">&#1085;&#1072; hh (cv-base-ru)</text>
-  <text x="583" y="808" text-anchor="start" class="ts">&#1076;&#1088;&#1091;&#1075;&#1086;&#1081; &#1089;&#1072;&#1081;&#1090;</text>
-  <text x="740" y="811" text-anchor="middle" class="ts">cv.md, &#1087;&#1088;&#1080; &#1085;&#1077;&#1086;&#1073;&#1093;&#1086;&#1076;&#1080;&#1084;&#1086;&#1089;&#1090;&#1080;</text>
-  <text x="740" y="827" text-anchor="middle" class="ts">PDF (generate_cv_unified.py)</text>
-  <text x="430" y="951" text-anchor="middle" class="t">&#1042;&#1099; &#1089;&#1072;&#1084;&#1080; &#1086;&#1090;&#1082;&#1083;&#1080;&#1082;&#1072;&#1077;&#1090;&#1077;&#1089;&#1100; &#1085;&#1072; &#1089;&#1072;&#1081;&#1090;&#1077;</text>
-  <text x="430" y="1021" text-anchor="middle" class="t">&#1042; tracker: &#1089;&#1090;&#1072;&#1090;&#1091;&#1089; applied</text>
-  <text x="430" y="1075" text-anchor="middle" class="sub">job-finder-kit / flow-diagram.svg</text>
+
+  <text x="460" y="36" text-anchor="middle" class="title">Job Finder Kit - how it works</text>
+  <text x="460" y="58" text-anchor="middle" class="subtitle">Folder + Cursor + AI helper. You review and apply yourself.</text>
+  <text x="64" y="92" class="text-sm">AI helper in Cursor</text>
+  <text x="224" y="92" text-anchor="middle" class="text-sm">You</text>
+  <text x="304" y="92" text-anchor="middle" class="text-sm">Files / scripts</text>
+  <text x="40" y="128" class="section">A. First-time setup (once)</text>
+  <text x="460" y="162" text-anchor="middle" class="text">Unzip or clone, install Cursor</text>
+  <text x="460" y="178" text-anchor="middle" class="text-sm">File - Open Folder - this folder</text>
+  <text x="460" y="240" text-anchor="middle" class="text">Fill AGENTS.md and cv-base (your resume)</text>
+  <text x="460" y="308" text-anchor="middle" class="text">Need PDF?</text>
+  <text x="290" y="300" text-anchor="middle" class="text-sm">yes</text>
+  <text x="140" y="314" text-anchor="middle" class="text-sm">Python, ONBOARDING step 4</text>
+  <text x="610" y="300" text-anchor="middle" class="text-sm">no / hh only</text>
+  <text x="460" y="380" text-anchor="middle" class="text">First chat: @AGENTS.md - add jobs to tracker</text>
+  <text x="460" y="396" text-anchor="middle" class="text-sm">Agent mode, Cmd+L / Ctrl+L</text>
+  <text x="40" y="448" class="section">B. Each day / each application</text>
+  <text x="460" y="488" text-anchor="middle" class="text">Vacancies in tracker.md (numbered table)</text>
+  <text x="460" y="556" text-anchor="middle" class="text">You: I like #3 and #7</text>
+  <text x="460" y="620" text-anchor="middle" class="text">Helper: applications/company-role/</text>
+  <text x="460" y="638" text-anchor="middle" class="text-sm">vacancy.md, cover.md, cv.md (if not hh)</text>
+  <text x="460" y="704" text-anchor="middle" class="text">You read, edit, say OK</text>
+  <text x="460" y="778" text-anchor="middle" class="text">Where to apply?</text>
+  <text x="265" y="770" text-anchor="middle" class="text-sm">hh.ru</text>
+  <text x="140" y="778" text-anchor="middle" class="text-sm">cover.md + resume</text>
+  <text x="140" y="794" text-anchor="middle" class="text-sm">on hh (cv-base-ru)</text>
+  <text x="655" y="770" text-anchor="middle" class="text-sm">other site</text>
+  <text x="760" y="772" text-anchor="middle" class="text-sm">cv.md, PDF if needed</text>
+  <text x="760" y="788" text-anchor="middle" class="text-sm">(generate_cv_unified.py)</text>
+  <text x="460" y="900" text-anchor="middle" class="text">You apply on the employer site</text>
+  <text x="460" y="968" text-anchor="middle" class="text">Set status applied in tracker</text>
+  <text x="460" y="1024" text-anchor="middle" class="text" font-weight="bold">Key files</text>
+  <text x="460" y="1044" text-anchor="middle" class="text-sm">tracker.md - list; AGENTS.md - rules; cv-base - resume; applications/ - drafts</text>
+  <text x="460" y="1062" text-anchor="middle" class="text-sm">Details: ONBOARDING.md, README.md</text>
+  <text x="460" y="1148" text-anchor="middle" class="subtitle">find-me-a-job / flow-diagram.svg</text>
+
+  <rect x="40" y="78" width="18" height="18" class="legend-ai" rx="3"/>
+  <rect x="200" y="78" width="18" height="18" class="legend-you" rx="3"/>
+  <rect x="280" y="78" width="18" height="18" class="legend-sys" rx="3"/>
+  <rect x="300" y="142" width="320" height="44" class="box-start" rx="8"/>
+  <line x1="460" y1="186" x2="460" y2="212" class="line"/>
+  <rect x="260" y="214" width="400" height="40" class="box-you" rx="8"/>
+  <line x1="460" y1="254" x2="460" y2="280" class="line"/>
+  <polygon points="460,282 520,322 400,322" class="box-decision"/>
+  <line x1="400" y1="308" x2="180" y2="308" class="line"/>
+  <rect x="40" y="288" width="200" height="40" class="box-sys" rx="8"/>
+  <line x1="520" y1="308" x2="700" y2="308" class="line"/>
+  <line x1="460" y1="322" x2="460" y2="358" class="line"/>
+  <rect x="220" y="360" width="480" height="44" class="box-ai" rx="8"/>
+  <rect x="300" y="462" width="320" height="40" class="box-ai" rx="8"/>
+  <line x1="460" y1="502" x2="460" y2="528" class="line"/>
+  <rect x="280" y="530" width="360" height="40" class="box-you" rx="8"/>
+  <line x1="460" y1="570" x2="460" y2="596" class="line"/>
+  <rect x="200" y="598" width="520" height="52" class="box-ai" rx="8"/>
+  <line x1="460" y1="650" x2="460" y2="676" class="line"/>
+  <rect x="260" y="678" width="400" height="40" class="box-you" rx="8"/>
+  <line x1="460" y1="718" x2="460" y2="744" class="line"/>
+  <polygon points="460,746 530,796 390,796" class="box-decision"/>
+  <line x1="390" y1="778" x2="140" y2="778" class="line"/>
+  <rect x="40" y="756" width="200" height="56" class="box-sys" rx="8"/>
+  <line x1="530" y1="778" x2="780" y2="778" class="line"/>
+  <rect x="640" y="748" width="240" height="60" class="box-sys" rx="8"/>
+  <line x1="140" y1="812" x2="140" y2="848" class="line"/>
+  <line x1="760" y1="808" x2="760" y2="848" class="line"/>
+  <line x1="140" y1="848" x2="760" y2="848" class="line"/>
+  <line x1="460" y1="848" x2="460" y2="872" class="line"/>
+  <rect x="280" y="874" width="360" height="40" class="box-you" rx="8"/>
+  <line x1="460" y1="914" x2="460" y2="940" class="line"/>
+  <rect x="300" y="942" width="320" height="40" class="box-end" rx="8"/>
+  <rect x="40" y="1000" width="840" height="72" class="box-sys" rx="8"/>
+
 </svg>

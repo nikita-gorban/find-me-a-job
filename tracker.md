@@ -1,40 +1,29 @@
 # Job Application Tracker
 
-## How to use / Как пользоваться
+## How to use
 
-1. Mark vacancy numbers you want to pursue — the agent prepares materials.
-2. After you approve `cover.md`, apply or continue. For **non-hh** platforms: also approve `cv.md`, then generate PDF.
-3. See [AGENTS.md](AGENTS.md) for statuses and rules.
+1. Mark vacancy numbers you want to pursue — the agent prepares materials in `applications/<slug>/`.
+2. After you approve `cover.md` (and `cv.md` on non-hh platforms), generate **CV PDF** when needed, then apply.
+3. Vacancy details live in `applications/<slug>/vacancy.md`, not here.
 
-**Statuses:** `new` · `cv_draft` · `cv_approved` · `cover_done` · `pdf_ready` · `applied` · `skip` (transient)
+**Statuses:** `new` · `prep` · `ready` · `applied`
+
+**Filters:** see [AGENTS.md](AGENTS.md) — e.g. full remote only; languages EN / RU / PT (A2).
 
 | Platform | Files |
 |----------|--------|
 | **hh.ru** | `cover.md` (+ optional `vacancy.md`); resume on site from `cv-base-ru.md` |
 | **Other** | + `cv.md` → approve → `python3` / `py -3 generate_cv_unified.py applications/<slug>` |
 
-**Match:** `High` · `Medium` · `Low` — optional stretch or risk in Notes.
+**Match:** `High` · `Medium` · `Low` — optional stretch or risk note in `vacancy.md`.
 
 ---
 
-## Vacancies / Вакансии
+## Vacancies
 
 | # | Company | Role | Industry | Country | Remote | Salary | Match | URL | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | | | | | | | | | | `new` |
-
----
-
-## Notes / Заметки
-
-Format per vacancy:
-
-```markdown
-### #1 Company Name — Role short title
-- Link check: active as of YYYY-MM-DD
-- Fit: …
-- Gaps: …
-```
 
 ---
 

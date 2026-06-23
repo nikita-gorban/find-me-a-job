@@ -1,102 +1,102 @@
-# Первый запуск — пошагово для новичков
+# First-time setup — step by step
 
-Эта инструкция рассчитана на тех, кто **никогда не работал с Cursor и терминалом**. Время: примерно **15–30 минут**. Можно делать по одному шагу в день.
+This guide is for people who **have never used Cursor or a terminal**. Time: about **15–30 minutes**. You can pause between steps.
 
-**Эта папка — весь проект.** Других папок «сверху» не нужно.
+**This folder is the whole project.** No parent folder needed.
 
-Справочник попроще: [README.ru.md](README.ru.md) · кнопки в Cursor: [CURSOR.md](CURSOR.md)
-
----
-
-## Что вы вообще настраиваете
-
-| Шаг | Простыми словами |
-|-----|------------------|
-| 1 | Открыть папку в программе Cursor |
-| 2 | Написать помощнику, **какую работу** вы ищете |
-| 3 | Вставить **своё резюме** вместо шаблона |
-| 4 | (По желанию) Установить Python, чтобы потом делать PDF |
-| 5 | Написать помощнику первый запрос в чате |
+Quick reference: [README.md](README.md) · Cursor keys: [CURSOR.md](CURSOR.md)
 
 ---
 
-## Шаг 0. Что такое Cursor (30 секунд)
+## What you are setting up
 
-**Cursor** — редактор с чатом. Слева файлы (как в папке), справа можно спросить **помощника** (ИИ). Он видит ваши файлы и может их менять — **вы всегда можете отменить** (Ctrl+Z / Cmd+Z).
-
-Скачать: [cursor.com](https://cursor.com) → установить → войти в аккаунт.
-
----
-
-## Шаг 1. Открыть эту папку
-
-- **С GitHub:** `git clone https://github.com/nikita-gorban/find-me-a-job.git` → зайти в папку `find-me-a-job`.
-- **Или zip:** распакуйте архив (Code → Download ZIP на GitHub). Имя папки можно менять (например `Мои-отклики`).
-- В Cursor меню: **File → Open Folder** (Файл → Открыть папку).
-- Выберите папку, где **сразу видны** файлы `README.ru.md` и `AGENTS.md`.
-- **Совет для Windows:** по возможности путь без кириллицы, например `C:\Users\Имя\job-search` лучше чем длинный путь с пробелами и русскими буквами.
-
-Проверка: слева в списке файлов есть `tracker.md`, папка `applications`.
+| Step | In plain words |
+|------|----------------|
+| 1 | Open the folder in Cursor |
+| 2 | Tell the helper **what job** you want |
+| 3 | Paste **your real resume** instead of the template |
+| 4 | (Optional) Install Python to build PDFs later |
+| 5 | Send the helper your first chat message |
 
 ---
 
-## Шаг 2. Правила для помощника — файл AGENTS.md
+## Step 0. What is Cursor? (30 seconds)
 
-1. Откройте [AGENTS.md](AGENTS.md) (клик слева).
-2. Найдите блок **User preferences**.
-3. Вместо текста в `[квадратных скобках]` напишите **своё**, например:
-   - какую роль ищете (PM, координатор…);
-   - удалёнка / страна;
-   - какие языки в вакансии вам подходят;
-   - откликаетесь на hh или на зарубежные сайты;
-   - на «ты» или «вы» в письмах (если по-русски).
+**Cursor** is an editor with a chat panel. Files are on the left (same as this folder); on the right you talk to an **AI helper**. It can read and edit your files — **you can always undo** (Ctrl+Z / Cmd+Z).
 
-Это как **инструкция няньке**: без неё помощник будет гадать.
-
-Также в начале [generate_cv_unified.py](generate_cv_unified.py) (если будете делать PDF):
-
-- `PDF_FILENAME` — как назвать файл, например `Ivanov_CV.pdf`;
-- `URL_FRAGMENTS` — кусочки ваших ссылок (telegram, почта), чтобы в PDF кликались ссылки.
+Download: [cursor.com](https://cursor.com) → install → sign in.
 
 ---
 
-## Шаг 3. Ваше резюме — заменить шаблон
+## Step 1. Open this folder
 
-Откройте [cv-base-en.md](cv-base-en.md) — это **английское** резюме-заготовка.
+- **From GitHub:** `git clone https://github.com/nikita-gorban/find-me-a-job.git` → enter the `find-me-a-job` folder.
+- **Or ZIP:** download from GitHub (**Code → Download ZIP**). You can rename the folder (e.g. `my-job-search`).
+- In Cursor: **File → Open Folder**.
+- Pick the folder where you **immediately see** `README.md` and `AGENTS.md`.
+- **Windows tip:** prefer a path without non-Latin characters, e.g. `C:\Users\You\job-search` instead of long paths with spaces.
 
-- Удалите чужие примеры.
-- Впишите **правду**: имя, опыт, навыки.
-- Не стыдитесь короткого опыта — лучше честно, чем «приукрасить».
-
-Если пользуетесь **hh.ru**, то же сделайте в [cv-base-ru.md](cv-base-ru.md) (текст потом вставите в профиль на hh).
-
-Первая строка в `cv-base-ru.md` с напоминанием — её можно удалить после прочтения.
+Check: `tracker.md` and the `applications/` folder appear in the file list on the left.
 
 ---
 
-## Шаг 4. Python и PDF — нужно ли вам?
+## Step 2. Rules for the helper — `AGENTS.md`
 
-**Пропустите шаг 4**, если:
+1. Open [AGENTS.md](AGENTS.md) (click on the left).
+2. Find the **User preferences** block.
+3. Replace text in `[square brackets]` with **your** values, for example:
+   - target role (PM, coordinator…);
+   - remote / location filters;
+   - which vacancy languages you accept;
+   - platforms (hh.ru vs international);
+   - cover letter tone.
 
-- откликаетесь **только через hh.ru**, и PDF не просят.
+This is the helper’s standing instructions — without it, results will be generic.
 
-**Сделайте шаг 4**, если:
+Also at the top of [generate_cv_unified.py](generate_cv_unified.py) (if you will build PDFs):
 
-- нужен **файл PDF** с резюме (многие зарубежные формы).
+- `PDF_FILENAME` — output name, e.g. `Smith_CV.pdf`;
+- `URL_FRAGMENTS` — fragments of your links (telegram, email) so PDF links stay clickable.
 
-### Что такое Python здесь
+---
 
-**Python** — бесплатная программа. Наш маленький скрипт `generate_cv_unified.py` превращает текст резюме в один красивый PDF. Один раз ставим Python и «дополнения» (библиотеки) — дальше одна команда на отклик.
+## Step 3. Your resume — replace the template
 
-### Установить Python
+Open [cv-base-en.md](cv-base-en.md) — your **English** master resume.
 
-- Сайт: [python.org/downloads](https://www.python.org/downloads/)
-- **Windows:** при установке включите галочку **“Add python.exe to PATH”**.
-- Проверка: откройте терминал в Cursor (**Terminal → New Terminal** внизу).
+- Remove placeholder examples.
+- Write **only true facts**: name, experience, skills.
+- Short experience is fine — honesty beats padding.
 
-### Команды (копируйте по одной строке)
+If you use **hh.ru**, do the same in [cv-base-ru.md](cv-base-ru.md) (Russian section headers stay Russian; paste the text into your hh profile).
 
-Вы уже в папке проекта, если открыли её через Open Folder.
+Delete the one-line reminder at the top of `cv-base-ru.md` after you read it.
+
+---
+
+## Step 4. Python and PDF — do you need it?
+
+**Skip step 4** if:
+
+- you apply **only via hh.ru**, and nobody asks for a PDF file.
+
+**Do step 4** if:
+
+- you need a **PDF resume** (common on international job boards).
+
+### What Python does here
+
+**Python** is a free runtime. Our small script `generate_cv_unified.py` turns resume text into a one-page PDF. Install once, then one command per application.
+
+### Install Python
+
+- Site: [python.org/downloads](https://www.python.org/downloads/)
+- **Windows:** check **“Add python.exe to PATH”** during install.
+- Test: open a terminal in Cursor (**Terminal → New Terminal** at the bottom).
+
+### Commands (copy one line at a time)
+
+You are already in the project folder if you opened it via **Open Folder**.
 
 **Mac / Linux:**
 
@@ -106,7 +106,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-**Windows** (чёрное окно внизу Cursor):
+**Windows** (terminal at the bottom of Cursor):
 
 ```bat
 py -3 -m venv .venv
@@ -114,17 +114,17 @@ py -3 -m venv .venv
 pip install -r requirements.txt
 ```
 
-Что происходит:
+What this does:
 
-- `.venv` — отдельная «коробочка» для библиотек, чтобы не ломать систему;
-- `activate` — включаем эту коробочку (после активации в начале строки часто видно `(.venv)`);
-- `pip install` — скачиваем то, что нужно для PDF.
+- `.venv` — isolated library folder;
+- `activate` — use that environment (you may see `(.venv)` in the prompt);
+- `pip install` — installs PDF dependencies.
 
-Если пишет «command not found» — Python не в PATH; переустановите с галочкой на Windows или напишите в чат Cursor: «не получается шаг 4 ONBOARDING».
+If you see “command not found”, Python is not on PATH — reinstall on Windows with the PATH checkbox, or ask in chat: “stuck on ONBOARDING step 4”.
 
-### Проверка: получился ли PDF
+### Test: did PDF generation work?
 
-В папке [applications/_example-do-not-track/](applications/_example-do-not-track/) лежит пример `cv.md`.
+The folder [applications/_example-do-not-track/](applications/_example-do-not-track/) contains a sample `cv.md`.
 
 **Mac / Linux:**
 
@@ -138,80 +138,80 @@ python3 generate_cv_unified.py applications/_example-do-not-track
 py -3 generate_cv_unified.py applications/_example-do-not-track
 ```
 
-Должен появиться файл `Your_Name_CV.pdf` (пока с шаблонным именем — потом поменяете в скрипте).
+You should get `Your_Name_CV.pdf` (rename later in the script).
 
-**Ошибка про шрифты?** На Windows обычно хватает стандартных. Можно в PowerShell:
+**Font error?** On Windows, standard fonts usually work. If not, in PowerShell:
 
 ```powershell
 $env:JOB_FINDER_FONT_DIR = 'C:\Windows\Fonts'
 ```
 
-и снова запустить команду выше.
+Then run the command again.
 
 ---
 
-## Шаг 5. Первый разговор с помощником
+## Step 5. First chat with the helper
 
-### 5.1 Открыть чат
+### 5.1 Open chat
 
-- Режим **Agent** (Агент), не Ask — агент может менять файлы, Ask только болтает.
+- Use **Agent** mode (not Ask) — Agent can edit files.
 - **Mac:** Cmd+L · **Windows:** Ctrl+L
 
-### 5.2 Что такое `@AGENTS.md`
+### 5.2 What is `@AGENTS.md`?
 
-В начале сообщения напишите **`@`** и начните набирать `AGENTS` — Cursor подставит файл. Так вы **прикрепляете инструкцию**, чтобы помощник точно её прочитал.
+Type **`@`** and start typing `AGENTS` — Cursor attaches the file. That way the helper **definitely** reads your rules.
 
-### 5.3 Первое сообщение (скопируйте и подставьте своё)
+### 5.3 First message (copy and customize)
 
 ```
 @AGENTS.md @cv-base-en.md
-Прочитай правила и моё резюме.
-Ищу [ваша роль, например Project Manager], [удалёнка / город].
-Добавь в tracker.md 10 подходящих активных вакансий с рабочими ссылками.
+Read the rules and my resume.
+I'm looking for [your role, e.g. Project Manager], [remote / location].
+Add 10 matching active vacancies to tracker.md with working links.
 ```
 
-Подождите. Помощник заполнит [tracker.md](tracker.md). Откройте файл и посмотрите таблицу.
+Wait. The helper fills [tracker.md](tracker.md). Open it and review the table.
 
-### 5.4 Второе сообщение
+### 5.4 Second message
 
-Когда выберете вакансии по номерам:
+When you pick vacancy numbers:
 
 ```
 @AGENTS.md
-Сделай cover для вакансии #1.
+Prepare cover for vacancy #1.
 ```
 
-Прочитайте файл `applications/.../cover.md`. Не нравится — напишите: «короче», «без воды», «упомяни опыт с Jira».
+Read `applications/.../cover.md`. Not happy? Say: “shorter”, “less formal”, “mention my Jira experience”.
 
-### hh.ru и не-hh (не пугайтесь названий файлов)
+### hh.ru vs other sites
 
-| Сайт | Что помощник создаст |
-|------|----------------------|
-| **hh.ru** | Письмо (`cover.md`) + заметки; резюме вы берёте с hh из cv-base-ru |
-| **Другой** | Письмо + текст резюме (`cv.md`) → вы проверяете → команда для PDF |
+| Site | What the helper creates |
+|------|-------------------------|
+| **hh.ru** | Letter (`cover.md`) + notes; resume stays on hh from `cv-base-ru` |
+| **Other** | Letter + tailored `cv.md` → you review → PDF command |
 
-Папка `_example-do-not-track` — **игрушечный пример**, в таблицу вакансий её не добавляем.
-
----
-
-## Вы справились, если…
-
-- [ ] Папка открыта в Cursor, файлы видны слева  
-- [ ] В AGENTS.md заполнены User preferences  
-- [ ] В cv-base-en (и ru при необходимости) — ваш текст, не шаблон  
-- [ ] В чате помощник добавил строки в tracker.md  
-- [ ] (Если нужен PDF) команда из шага 4 создала `.pdf`  
+The `_example-do-not-track` folder is a **toy example** — do not add it to the tracker.
 
 ---
 
-## Дальше каждый день
+## You are done when…
 
-1. Смотрите [tracker.md](tracker.md).  
-2. Говорите номера вакансий.  
-3. Правите черновики.  
-4. Сами жмёте «откликнуться» на сайте.  
-5. Поменяйте статус на `applied`, когда отправили.
+- [ ] Folder open in Cursor, files visible on the left
+- [ ] User preferences filled in `AGENTS.md`
+- [ ] `cv-base-en` (and `cv-base-ru` if needed) contain your text, not placeholders
+- [ ] Helper added rows to `tracker.md`
+- [ ] (If you need PDF) step 4 command created a `.pdf`
 
-Храните папку в **личном** облаке или git; пароли и секреты в файлы не кладите.
+---
 
-**Застряли?** Напишите в чат: `@AGENTS.md Помоги с шагом … из ONBOARDING, вот что вижу на экране: …`
+## Daily routine
+
+1. Check [tracker.md](tracker.md).
+2. Tell the helper vacancy numbers.
+3. Edit drafts until they sound like you.
+4. **You** click apply on the employer site.
+5. Set status to `applied` after you submit.
+
+Keep the folder in a **private** cloud backup or git; never store passwords in files.
+
+**Stuck?** Ask in chat: `@AGENTS.md Help with ONBOARDING step … — here's what I see: …`

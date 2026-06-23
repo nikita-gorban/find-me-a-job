@@ -1,56 +1,52 @@
 #!/usr/bin/env python3
-"""Regenerate flow-diagram.svg with safe XML entities for Cyrillic (Safari-compatible)."""
+"""Regenerate flow-diagram.svg (ASCII labels, Safari-compatible)."""
 
 from pathlib import Path
 
 
-def ent(s: str) -> str:
-    return "".join(c if ord(c) < 128 else f"&#{ord(c)};" for c in s)
-
-
 def main() -> None:
     labels = [
-        ("title", 460, 36, "title", "Job Finder Kit - как это работает"),
-        ("subtitle", 460, 58, "subtitle", "Папка + Cursor + помощник (ИИ). Вы проверяете и сами откликаетесь."),
-        ("text-sm", 64, 92, "text-sm", "Помощник в Cursor"),
-        ("text-sm", 224, 92, "text-sm", "Вы"),
-        ("text-sm", 304, 92, "text-sm", "Файлы / программа"),
-        ("section", 40, 128, "section", "А. Первый запуск (один раз)"),
-        ("text", 460, 162, "text", "Распаковать папку, установить Cursor"),
-        ("text-sm", 460, 178, "text-sm", "File - Open Folder - эта папка"),
-        ("text", 460, 240, "text", "Заполнить AGENTS.md и cv-base (ваше резюме)"),
-        ("text", 460, 308, "text", "Нужен PDF?"),
-        ("text-sm", 290, 300, "text-sm", "да"),
-        ("text-sm", 140, 314, "text-sm", "Python, ONBOARDING шаг 4"),
-        ("text-sm", 610, 300, "text-sm", "нет / только hh"),
-        ("text", 460, 380, "text", "Первый чат: @AGENTS.md - добавить вакансии в tracker"),
-        ("text-sm", 460, 396, "text-sm", "Режим Agent, Cmd+L / Ctrl+L"),
-        ("section", 40, 448, "section", "Б. Каждый день / каждый отклик"),
-        ("text", 460, 488, "text", "Вакансии в tracker.md (таблица с номерами)"),
-        ("text", 460, 556, "text", "Вы: нравится номер 3 и 7"),
-        ("text", 460, 620, "text", "Помощник: папка applications/компания-роль/"),
-        ("text-sm", 460, 638, "text-sm", "vacancy.md, cover.md, cv.md (если не hh)"),
-        ("text", 460, 704, "text", "Вы читаете, правите, говорите OK"),
-        ("text", 460, 778, "text", "Где отклик?"),
+        ("title", 460, 36, "title", "Job Finder Kit - how it works"),
+        ("subtitle", 460, 58, "subtitle", "Folder + Cursor + AI helper. You review and apply yourself."),
+        ("text-sm", 64, 92, "text-sm", "AI helper in Cursor"),
+        ("text-sm", 224, 92, "text-sm", "You"),
+        ("text-sm", 304, 92, "text-sm", "Files / scripts"),
+        ("section", 40, 128, "section", "A. First-time setup (once)"),
+        ("text", 460, 162, "text", "Unzip or clone, install Cursor"),
+        ("text-sm", 460, 178, "text-sm", "File - Open Folder - this folder"),
+        ("text", 460, 240, "text", "Fill AGENTS.md and cv-base (your resume)"),
+        ("text", 460, 308, "text", "Need PDF?"),
+        ("text-sm", 290, 300, "text-sm", "yes"),
+        ("text-sm", 140, 314, "text-sm", "Python, ONBOARDING step 4"),
+        ("text-sm", 610, 300, "text-sm", "no / hh only"),
+        ("text", 460, 380, "text", "First chat: @AGENTS.md - add jobs to tracker"),
+        ("text-sm", 460, 396, "text-sm", "Agent mode, Cmd+L / Ctrl+L"),
+        ("section", 40, 448, "section", "B. Each day / each application"),
+        ("text", 460, 488, "text", "Vacancies in tracker.md (numbered table)"),
+        ("text", 460, 556, "text", "You: I like #3 and #7"),
+        ("text", 460, 620, "text", "Helper: applications/company-role/"),
+        ("text-sm", 460, 638, "text-sm", "vacancy.md, cover.md, cv.md (if not hh)"),
+        ("text", 460, 704, "text", "You read, edit, say OK"),
+        ("text", 460, 778, "text", "Where to apply?"),
         ("text-sm", 265, 770, "text-sm", "hh.ru"),
-        ("text-sm", 140, 778, "text-sm", "cover.md + резюме"),
-        ("text-sm", 140, 794, "text-sm", "на hh (cv-base-ru)"),
-        ("text-sm", 655, 770, "text-sm", "другой сайт"),
-        ("text-sm", 760, 772, "text-sm", "cv.md, при необходимости"),
-        ("text-sm", 760, 788, "text-sm", "PDF (generate_cv_unified.py)"),
-        ("text", 460, 900, "text", "Вы сами откликаетесь на сайте"),
-        ("text", 460, 968, "text", "В tracker: статус applied"),
-        ("text", 460, 1024, "text", "Главные файлы"),
-        ("text-sm", 460, 1044, "text-sm", "tracker.md - список; AGENTS.md - правила; cv-base - резюме; applications/ - черновики"),
-        ("text-sm", 460, 1062, "text-sm", "Подробно: ONBOARDING.md, README.ru.md"),
-        ("subtitle", 460, 1148, "subtitle", "job-finder-kit / flow-diagram.svg"),
+        ("text-sm", 140, 778, "text-sm", "cover.md + resume"),
+        ("text-sm", 140, 794, "text-sm", "on hh (cv-base-ru)"),
+        ("text-sm", 655, 770, "text-sm", "other site"),
+        ("text-sm", 760, 772, "text-sm", "cv.md, PDF if needed"),
+        ("text-sm", 760, 788, "text-sm", "(generate_cv_unified.py)"),
+        ("text", 460, 900, "text", "You apply on the employer site"),
+        ("text", 460, 968, "text", "Set status applied in tracker"),
+        ("text", 460, 1024, "text", "Key files"),
+        ("text-sm", 460, 1044, "text-sm", "tracker.md - list; AGENTS.md - rules; cv-base - resume; applications/ - drafts"),
+        ("text-sm", 460, 1062, "text-sm", "Details: ONBOARDING.md, README.md"),
+        ("subtitle", 460, 1148, "subtitle", "find-me-a-job / flow-diagram.svg"),
     ]
 
     text_els = []
     for _id, x, y, klass, s in labels:
         anchor = ' text-anchor="middle"' if x > 100 else ""
-        fw = ' font-weight="bold"' if s == "Главные файлы" else ""
-        text_els.append(f'  <text x="{x}" y="{y}"{anchor} class="{klass}"{fw}>{ent(s)}</text>')
+        fw = ' font-weight="bold"' if s == "Key files" else ""
+        text_els.append(f'  <text x="{x}" y="{y}"{anchor} class="{klass}"{fw}>{s}</text>')
 
     shapes = """
   <rect x="40" y="78" width="18" height="18" class="legend-ai" rx="3"/>
