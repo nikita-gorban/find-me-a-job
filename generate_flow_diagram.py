@@ -1,117 +1,281 @@
 #!/usr/bin/env python3
-"""Regenerate flow-diagram.svg (ASCII labels, Safari-compatible)."""
+"""Regenerate flow-diagram.svg — routed arrows, labels inside boxes or in gaps."""
+
+from __future__ import annotations
 
 from pathlib import Path
 
+W, H = 920, 1360
+CX = W // 2
 
-def main() -> None:
-    labels = [
-        ("title", 460, 36, "title", "Job Finder Kit - how it works"),
-        ("subtitle", 460, 58, "subtitle", "Folder + Cursor + AI helper. You review and apply yourself."),
-        ("text-sm", 64, 92, "text-sm", "AI helper in Cursor"),
-        ("text-sm", 224, 92, "text-sm", "You"),
-        ("text-sm", 304, 92, "text-sm", "Files / scripts"),
-        ("section", 40, 128, "section", "A. First-time setup (once)"),
-        ("text", 460, 162, "text", "Unzip or clone, install Cursor"),
-        ("text-sm", 460, 178, "text-sm", "File - Open Folder - this folder"),
-        ("text", 460, 240, "text", "Fill AGENTS.md and cv-base (your resume)"),
-        ("text", 460, 308, "text", "Need PDF?"),
-        ("text-sm", 290, 300, "text-sm", "yes"),
-        ("text-sm", 140, 314, "text-sm", "Python, ONBOARDING step 4"),
-        ("text-sm", 610, 300, "text-sm", "no / hh only"),
-        ("text", 460, 380, "text", "First chat: @AGENTS.md - add jobs to tracker"),
-        ("text-sm", 460, 396, "text-sm", "Agent mode, Cmd+L / Ctrl+L"),
-        ("section", 40, 448, "section", "B. Each day / each application"),
-        ("text", 460, 488, "text", "Vacancies in tracker.md (numbered table)"),
-        ("text", 460, 556, "text", "You: I like #3 and #7"),
-        ("text", 460, 620, "text", "Helper: applications/company-role/"),
-        ("text-sm", 460, 638, "text-sm", "vacancy.md, cover.md, cv.md (if not hh)"),
-        ("text", 460, 704, "text", "You read, edit, say OK"),
-        ("text", 460, 778, "text", "Where to apply?"),
-        ("text-sm", 265, 770, "text-sm", "hh.ru"),
-        ("text-sm", 140, 778, "text-sm", "cover.md + resume"),
-        ("text-sm", 140, 794, "text-sm", "on hh (cv-base-ru)"),
-        ("text-sm", 655, 770, "text-sm", "other site"),
-        ("text-sm", 760, 772, "text-sm", "cv.md, PDF if needed"),
-        ("text-sm", 760, 788, "text-sm", "(generate_cv_unified.py)"),
-        ("text", 460, 900, "text", "You apply on the employer site"),
-        ("text", 460, 968, "text", "Set status applied in tracker"),
-        ("text", 460, 1024, "text", "Key files"),
-        ("text-sm", 460, 1044, "text-sm", "tracker.md - list; AGENTS.md - rules; cv-base - resume; applications/ - drafts"),
-        ("text-sm", 460, 1062, "text-sm", "Details: ONBOARDING.md, README.md"),
-        ("subtitle", 460, 1148, "subtitle", "find-me-a-job / flow-diagram.svg"),
-    ]
-
-    text_els = []
-    for _id, x, y, klass, s in labels:
-        anchor = ' text-anchor="middle"' if x > 100 else ""
-        fw = ' font-weight="bold"' if s == "Key files" else ""
-        text_els.append(f'  <text x="{x}" y="{y}"{anchor} class="{klass}"{fw}>{s}</text>')
-
-    shapes = """
-  <rect x="40" y="78" width="18" height="18" class="legend-ai" rx="3"/>
-  <rect x="200" y="78" width="18" height="18" class="legend-you" rx="3"/>
-  <rect x="280" y="78" width="18" height="18" class="legend-sys" rx="3"/>
-  <rect x="300" y="142" width="320" height="44" class="box-start" rx="8"/>
-  <line x1="460" y1="186" x2="460" y2="212" class="line"/>
-  <rect x="260" y="214" width="400" height="40" class="box-you" rx="8"/>
-  <line x1="460" y1="254" x2="460" y2="280" class="line"/>
-  <polygon points="460,282 520,322 400,322" class="box-decision"/>
-  <line x1="400" y1="308" x2="180" y2="308" class="line"/>
-  <rect x="40" y="288" width="200" height="40" class="box-sys" rx="8"/>
-  <line x1="520" y1="308" x2="700" y2="308" class="line"/>
-  <line x1="460" y1="322" x2="460" y2="358" class="line"/>
-  <rect x="220" y="360" width="480" height="44" class="box-ai" rx="8"/>
-  <rect x="300" y="462" width="320" height="40" class="box-ai" rx="8"/>
-  <line x1="460" y1="502" x2="460" y2="528" class="line"/>
-  <rect x="280" y="530" width="360" height="40" class="box-you" rx="8"/>
-  <line x1="460" y1="570" x2="460" y2="596" class="line"/>
-  <rect x="200" y="598" width="520" height="52" class="box-ai" rx="8"/>
-  <line x1="460" y1="650" x2="460" y2="676" class="line"/>
-  <rect x="260" y="678" width="400" height="40" class="box-you" rx="8"/>
-  <line x1="460" y1="718" x2="460" y2="744" class="line"/>
-  <polygon points="460,746 530,796 390,796" class="box-decision"/>
-  <line x1="390" y1="778" x2="140" y2="778" class="line"/>
-  <rect x="40" y="756" width="200" height="56" class="box-sys" rx="8"/>
-  <line x1="530" y1="778" x2="780" y2="778" class="line"/>
-  <rect x="640" y="748" width="240" height="60" class="box-sys" rx="8"/>
-  <line x1="140" y1="812" x2="140" y2="848" class="line"/>
-  <line x1="760" y1="808" x2="760" y2="848" class="line"/>
-  <line x1="140" y1="848" x2="760" y2="848" class="line"/>
-  <line x1="460" y1="848" x2="460" y2="872" class="line"/>
-  <rect x="280" y="874" width="360" height="40" class="box-you" rx="8"/>
-  <line x1="460" y1="914" x2="460" y2="940" class="line"/>
-  <rect x="300" y="942" width="320" height="40" class="box-end" rx="8"/>
-  <rect x="40" y="1000" width="840" height="72" class="box-sys" rx="8"/>
+STYLES = """
+      .box-start { fill: #dbeafe; stroke: #2563eb; stroke-width: 2; }
+      .box-end { fill: #dcfce7; stroke: #16a34a; stroke-width: 2; }
+      .box-you { fill: #fef3c7; stroke: #d97706; stroke-width: 2; }
+      .box-ai { fill: #ede9fe; stroke: #7c3aed; stroke-width: 2; }
+      .box-sys { fill: #f1f5f9; stroke: #334155; stroke-width: 2; }
+      .box-decision { fill: #ffffff; stroke: #64748b; stroke-width: 2; }
+      .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .legend-ai { fill: #ede9fe; stroke: #7c3aed; }
+      .legend-you { fill: #fef3c7; stroke: #d97706; }
+      .legend-sys { fill: #f1f5f9; stroke: #334155; }
+      .label-bg { fill: #ffffff; stroke: #e2e8f0; stroke-width: 1; }
 """
 
+
+def esc(text: str) -> str:
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def box(x: int, y: int, w: int, h: int, cls: str) -> dict:
+    return {"kind": "box", "x": x, "y": y, "w": w, "h": h, "cls": cls}
+
+
+def diamond(cx: int, cy: int, hw: int = 58, hh: int = 34) -> dict:
+    return {
+        "kind": "diamond",
+        "cx": cx,
+        "cy": cy,
+        "hw": hw,
+        "hh": hh,
+        "points": f"{cx},{cy - hh} {cx + hw},{cy} {cx},{cy + hh} {cx - hw},{cy}",
+    }
+
+
+def top_mid(n: dict) -> tuple[int, int]:
+    if n["kind"] == "box":
+        return n["x"] + n["w"] // 2, n["y"]
+    return n["cx"], n["cy"] - n["hh"]
+
+
+def bottom_mid(n: dict) -> tuple[int, int]:
+    if n["kind"] == "box":
+        return n["x"] + n["w"] // 2, n["y"] + n["h"]
+    return n["cx"], n["cy"] + n["hh"]
+
+
+def left_mid(n: dict) -> tuple[int, int]:
+    if n["kind"] == "box":
+        return n["x"], n["y"] + n["h"] // 2
+    return n["cx"] - n["hw"], n["cy"]
+
+
+def right_mid(n: dict) -> tuple[int, int]:
+    if n["kind"] == "box":
+        return n["x"] + n["w"], n["y"] + n["h"] // 2
+    return n["cx"] + n["hw"], n["cy"]
+
+
+def vline(x: int, y1: int, y2: int) -> str:
+    return f'  <line x1="{x}" y1="{y1}" x2="{x}" y2="{y2}" class="line"/>'
+
+
+def route(points: list[tuple[int, int]]) -> str:
+    pts = " ".join(f"{x},{y}" for x, y in points)
+    return f'  <polyline points="{pts}" class="line"/>'
+
+
+def box_rect(n: dict) -> str:
+    return (
+        f'  <rect x="{n["x"]}" y="{n["y"]}" width="{n["w"]}" '
+        f'height="{n["h"]}" class="{n["cls"]}" rx="8"/>'
+    )
+
+
+def diamond_poly(n: dict) -> str:
+    return f'  <polygon points="{n["points"]}" class="box-decision"/>'
+
+
+def box_text(n: dict, lines: list[tuple[str, int, str]]) -> list[str]:
+    cx = n["x"] + n["w"] // 2
+    total = sum(15 if sz > 11 else 14 for _, sz, _ in lines)
+    y = n["y"] + (n["h"] - total) // 2 + 13
+    out = []
+    for text, sz, color in lines:
+        out.append(
+            f'  <text x="{cx}" y="{y}" text-anchor="middle" '
+            f'font-family="Arial, Helvetica, sans-serif" font-size="{sz}" '
+            f'font-weight="400" fill="{color}">{esc(text)}</text>'
+        )
+        y += 15 if sz > 11 else 14
+    return out
+
+
+def diamond_text(n: dict, text: str) -> str:
+    return (
+        f'  <text x="{n["cx"]}" y="{n["cy"] + 5}" text-anchor="middle" '
+        f'font-family="Arial, Helvetica, sans-serif" font-size="12" '
+        f'font-weight="600" fill="#0f172a">{esc(text)}</text>'
+    )
+
+
+def branch_label(x: int, y: int, text: str) -> list[str]:
+    w = len(text) * 6.4 + 14
+    h = 18
+    return [
+        f'  <rect x="{x - w / 2:.1f}" y="{y - 13}" width="{w:.1f}" height="{h}" class="label-bg" rx="4"/>',
+        (
+            f'  <text x="{x}" y="{y}" text-anchor="middle" '
+            f'font-family="Arial, Helvetica, sans-serif" font-size="11" '
+            f'font-weight="600" fill="#475569">{esc(text)}</text>'
+        ),
+    ]
+
+
+def plain_text(x: int, y: int, text: str, *, size: int = 11, weight: int = 400,
+               color: str = "#475569", anchor: str = "start") -> str:
+    return (
+        f'  <text x="{x}" y="{y}" text-anchor="{anchor}" '
+        f'font-family="Arial, Helvetica, sans-serif" font-size="{size}" '
+        f'font-weight="{weight}" fill="{color}">{esc(text)}</text>'
+    )
+
+
+def main() -> None:
+    n_start = box(290, 132, 340, 50, "box-start")
+    n_fill = box(260, 214, 400, 50, "box-you")
+    d_pdf = diamond(CX, 318)
+    n_python = box(48, 400, 220, 50, "box-sys")
+    n_chat = box(210, 518, 500, 54, "box-ai")
+
+    n_track = box(250, 636, 420, 44, "box-ai")
+    n_pick = box(280, 714, 360, 44, "box-you")
+    n_draft = box(170, 792, 580, 54, "box-ai")
+    n_review = box(260, 880, 400, 44, "box-you")
+    d_where = diamond(CX, 986)
+    n_hh = box(48, 1062, 230, 58, "box-sys")
+    n_other = box(642, 1062, 230, 58, "box-sys")
+    n_apply = box(280, 1176, 360, 44, "box-you")
+    n_done = box(300, 1252, 320, 44, "box-end")
+
+    shapes: list[str] = [f'  <rect x="0" y="0" width="{W}" height="{H}" fill="#ffffff"/>']
+    shapes += [
+        '  <rect x="40" y="78" width="18" height="18" class="legend-ai" rx="3"/>',
+        '  <rect x="200" y="78" width="18" height="18" class="legend-you" rx="3"/>',
+        '  <rect x="280" y="78" width="18" height="18" class="legend-sys" rx="3"/>',
+    ]
+
+    nodes = [
+        n_start, n_fill, d_pdf, n_python, n_chat,
+        n_track, n_pick, n_draft, n_review, d_where,
+        n_hh, n_other, n_apply, n_done,
+    ]
+    for n in nodes:
+        shapes.append(box_rect(n) if n["kind"] == "box" else diamond_poly(n))
+    shapes.append('  <rect x="40" y="1304" width="840" height="52" class="box-sys" rx="8"/>')
+
+    merge_y = 484
+    py_cx = n_python["x"] + n_python["w"] // 2
+    hh_cx = n_hh["x"] + n_hh["w"] // 2
+    other_cx = n_other["x"] + n_other["w"] // 2
+    join_y = 1152
+
+    lines = [
+        vline(*bottom_mid(n_start), top_mid(n_fill)[1]),
+        vline(*bottom_mid(n_fill), top_mid(d_pdf)[1]),
+        # PDF yes → Python (drop below diamond, then across)
+        route([
+            left_mid(d_pdf),
+            (left_mid(d_pdf)[0], 360),
+            (py_cx, 360),
+            (py_cx, n_python["y"]),
+        ]),
+        # PDF no → merge rail
+        route([right_mid(d_pdf), (720, d_pdf["cy"]), (720, merge_y), (CX, merge_y)]),
+        # Python → merge rail
+        route([(py_cx, n_python["y"] + n_python["h"]), (py_cx, merge_y), (CX, merge_y)]),
+        vline(CX, merge_y, top_mid(n_chat)[1]),
+        vline(*bottom_mid(n_chat), top_mid(n_track)[1]),
+        vline(*bottom_mid(n_track), top_mid(n_pick)[1]),
+        vline(*bottom_mid(n_pick), top_mid(n_draft)[1]),
+        vline(*bottom_mid(n_draft), top_mid(n_review)[1]),
+        vline(*bottom_mid(n_review), top_mid(d_where)[1]),
+        # Where hh (route below diamond)
+        route([
+            left_mid(d_where),
+            (left_mid(d_where)[0], 1030),
+            (hh_cx, 1030),
+            (hh_cx, n_hh["y"]),
+        ]),
+        # Where other
+        route([
+            right_mid(d_where),
+            (right_mid(d_where)[0], 1030),
+            (other_cx, 1030),
+            (other_cx, n_other["y"]),
+        ]),
+        # Merge branches → apply
+        route([(hh_cx, n_hh["y"] + n_hh["h"]), (hh_cx, join_y), (CX, join_y)]),
+        route([(other_cx, n_other["y"] + n_other["h"]), (other_cx, join_y), (CX, join_y)]),
+        vline(CX, join_y, top_mid(n_apply)[1]),
+        vline(*bottom_mid(n_apply), top_mid(n_done)[1]),
+    ]
+    shapes.extend(lines)
+
+    texts: list[str] = [
+        plain_text(CX, 36, "Job Finder Kit — how it works", size=22, weight=700,
+                   color="#0f172a", anchor="middle"),
+        plain_text(CX, 58, "Folder + Cursor + AI helper. You review and apply yourself.",
+                   size=14, color="#64748b", anchor="middle"),
+        plain_text(64, 91, "AI helper in Cursor"),
+        plain_text(224, 91, "You"),
+        plain_text(304, 91, "Files / scripts"),
+        plain_text(40, 118, "A. First-time setup (once)", size=16, weight=700, color="#1e40af"),
+        plain_text(40, 606, "B. Each day / each application", size=16, weight=700, color="#1e40af"),
+    ]
+
+    texts += box_text(n_start, [
+        ("Unzip or clone, install Cursor", 13, "#0f172a"),
+        ("File → Open Folder → this folder", 11, "#475569"),
+    ])
+    texts += box_text(n_fill, [("Fill AGENTS.md and cv-base (your resume)", 13, "#0f172a")])
+    texts.append(diamond_text(d_pdf, "Need PDF?"))
+    texts += branch_label(250, 292, "yes")
+    texts += branch_label(670, 292, "no / hh only")
+    texts += box_text(n_python, [("Python + ONBOARDING step 4", 13, "#0f172a")])
+    texts += box_text(n_chat, [
+        ("First chat: @AGENTS.md — add jobs to tracker", 13, "#0f172a"),
+        ("Agent mode · Cmd+L / Ctrl+L", 11, "#475569"),
+    ])
+    texts += box_text(n_track, [("Vacancies in tracker.md (numbered table)", 13, "#0f172a")])
+    texts += box_text(n_pick, [("You: I like #3 and #7", 13, "#0f172a")])
+    texts += box_text(n_draft, [
+        ("Helper: applications/company-role/", 13, "#0f172a"),
+        ("vacancy.md · cover.md · cv.md (if not hh)", 11, "#475569"),
+    ])
+    texts += box_text(n_review, [("You read, edit, say OK", 13, "#0f172a")])
+    texts.append(diamond_text(d_where, "Where to apply?"))
+    texts += branch_label(195, 944, "hh.ru")
+    texts += branch_label(725, 944, "other site")
+    texts += box_text(n_hh, [
+        ("cover.md + resume", 13, "#0f172a"),
+        ("on hh (cv-base-ru)", 11, "#475569"),
+    ])
+    texts += box_text(n_other, [
+        ("cv.md, PDF if needed", 13, "#0f172a"),
+        ("(generate_cv_unified.py)", 11, "#475569"),
+    ])
+    texts += box_text(n_apply, [("You apply on the employer site", 13, "#0f172a")])
+    texts += box_text(n_done, [("Set status applied in tracker", 13, "#0f172a")])
+
+    texts += [
+        plain_text(CX, 1328, "Key files: tracker.md · AGENTS.md · cv-base · applications/",
+                   size=12, color="#0f172a", anchor="middle"),
+        plain_text(CX, 1346, "Details: ONBOARDING.md, README.md", color="#64748b", anchor="middle"),
+    ]
+
     svg = f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 1180">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <path d="M0,0 L9,3 L0,6 Z" fill="#334155"/>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#334155"/>
     </marker>
-    <style type="text/css"><![CDATA[
-      .title {{ font: 700 22px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #0f172a; }}
-      .subtitle {{ font: 14px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #64748b; }}
-      .section {{ font: 700 16px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #1e40af; }}
-      .box-start {{ fill: #dbeafe; stroke: #2563eb; stroke-width: 2; }}
-      .box-end {{ fill: #dcfce7; stroke: #16a34a; stroke-width: 2; }}
-      .box-you {{ fill: #fef3c7; stroke: #d97706; stroke-width: 2; }}
-      .box-ai {{ fill: #ede9fe; stroke: #7c3aed; stroke-width: 2; }}
-      .box-sys {{ fill: #f8fafc; stroke: #334155; stroke-width: 2; }}
-      .box-decision {{ fill: #ffffff; stroke: #64748b; stroke-width: 2; }}
-      .text {{ font: 13px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #0f172a; }}
-      .text-sm {{ font: 11px -apple-system, BlinkMacSystemFont, Arial, sans-serif; fill: #475569; }}
-      .line {{ stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }}
-      .legend-ai {{ fill: #ede9fe; stroke: #7c3aed; }}
-      .legend-you {{ fill: #fef3c7; stroke: #d97706; }}
-      .legend-sys {{ fill: #f8fafc; stroke: #334155; }}
-    ]]></style>
+    <style type="text/css"><![CDATA[{STYLES}]]></style>
   </defs>
 
-{chr(10).join(text_els)}
-{shapes}
+{chr(10).join(shapes)}
+
+{chr(10).join(texts)}
 </svg>
 '''
 
