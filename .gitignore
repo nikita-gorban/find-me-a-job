@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# User vacancy folders (template example .md files stay in repo; PDFs never)
+applications/*
+!applications/.gitkeep
+!applications/README.md
+!applications/_example-do-not-track/
+!applications/_example-do-not-track/*.md
+applications/**/*.pdf
