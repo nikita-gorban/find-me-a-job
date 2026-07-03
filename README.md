@@ -4,6 +4,8 @@ Think of this folder as a **notebook on your computer**: one table lists jobs, o
 
 You don’t need to be a programmer. You need Cursor, the internet, and time to fill in your details once.
 
+**This kit is local-first** — see [Local use (important)](#local-use-important) below.
+
 ---
 
 ## Get the kit
@@ -17,7 +19,25 @@ cd find-me-a-job
 
 **Or** on GitHub: **Code → Download ZIP** → unzip → open the folder in Cursor.
 
-Your real application folders under `applications/` are **gitignored** — drafts and PDFs stay on your machine.
+> **Not comfortable with git?** ZIP is enough. You only download the kit once; daily job search does **not** require GitHub, commits, or pushes.
+
+Your real application folders under `applications/` are **gitignored** — drafts and PDFs stay on your machine and are **not** meant for the public repo.
+
+---
+
+## Local use (important)
+
+This project is **optimized for local use on your computer**, not as a cloud app or a repo you update while applying.
+
+| | Once (setup) | Every day (job search) |
+|---|---|---|
+| **What you do** | Download kit → open in Cursor → fill `AGENTS.md` and cv-base | Chat with the helper, edit `tracker.md` and files in `applications/` |
+| **Git / GitHub** | Optional: `git clone` or ZIP | **Not required** — no need to commit or push |
+| **Where data lives** | Same folder on your disk | Same folder; optionally iCloud / Dropbox / **private** git backup |
+
+**Why:** cover letters, tailored CVs, and application history are personal. The public repo is a **template**; your hunt stays local by default (`applications/` is in `.gitignore`).
+
+**Do not** push your application materials to [find-me-a-job](https://github.com/nikita-gorban/find-me-a-job) — fork only if you want to customize the kit itself, in a **separate** private copy.
 
 ---
 
@@ -89,6 +109,7 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 
 ## Good to know
 
+- **Local-first** — work in a folder on your machine; git is optional after download (see [Local use](#local-use-important)).
 - The helper can be wrong — **always read** before you send anything.
 - Start your first chat with **`@AGENTS.md`** so it reads your rules.
 - Cover letters: **short**, about 3–5 sentences, in the **same language as the job ad**.

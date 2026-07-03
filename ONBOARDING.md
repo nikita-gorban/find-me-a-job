@@ -4,7 +4,20 @@ This guide is for people who **have never used Cursor or a terminal**. Time: abo
 
 **This folder is the whole project.** No parent folder needed.
 
+**Local-first:** you work in this folder on your computer. You do **not** need GitHub, `git push`, or commits while applying to jobs — only edit files and use Cursor chat. See [README — Local use](README.md#local-use-important).
+
 Quick reference: [README.md](README.md) · Cursor keys: [CURSOR.md](CURSOR.md)
+
+---
+
+## How setup fits your daily routine
+
+| Phase | What happens | Git? |
+|-------|----------------|------|
+| **Day 0** (this guide) | Get folder → Cursor → fill rules & resume → optional Python | Clone or ZIP **once** — or skip git entirely |
+| **Day 1+** | Helper updates tracker; you pick #; edit cover/cv; apply on employer site | **No** — just save files locally |
+
+If anything below feels unclear, you only need **Steps 1–3 and 5** to start. Step 4 (Python) can wait until a job board asks for a PDF.
 
 ---
 
@@ -30,9 +43,12 @@ Download: [cursor.com](https://cursor.com) → install → sign in.
 
 ## Step 1. Open this folder
 
-- **From GitHub:** `git clone https://github.com/nikita-gorban/find-me-a-job.git` → enter the `find-me-a-job` folder.
-- **Or ZIP:** download from GitHub (**Code → Download ZIP**). You can rename the folder (e.g. `my-job-search`).
-- In Cursor: **File → Open Folder**.
+Pick **one** way to get the files — you won't need GitHub again for daily use.
+
+- **Easiest (no git):** on GitHub → **Code → Download ZIP** → unzip. Rename if you like (e.g. `my-job-search`).
+- **With git:** `git clone https://github.com/nikita-gorban/find-me-a-job.git` → enter the `find-me-a-job` folder. **Do not** treat this as a project you must push to while job hunting — your applications stay local.
+
+Then in Cursor: **File → Open Folder**.
 - Pick the folder where you **immediately see** `README.md` and `AGENTS.md`.
 - **Windows tip:** prefer a path without non-Latin characters, e.g. `C:\Users\You\job-search` instead of long paths with spaces.
 
@@ -212,6 +228,6 @@ The `_example-do-not-track` folder is a **toy example** — do not add it to the
 4. **You** click apply on the employer site.
 5. Set status to `applied` (and **Applied** date) after you submit; use `declined` if rejected — do not delete the row.
 
-Keep the folder in a **private** cloud backup or git; never store passwords in files.
+Keep the folder in a **private** cloud backup (iCloud, Dropbox) or a **private** git repo if you want history — not the public kit repo.
 
 **Stuck?** Ask in chat: `@AGENTS.md Help with ONBOARDING step … — here's what I see: …`
