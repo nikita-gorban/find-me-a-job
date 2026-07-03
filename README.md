@@ -1,10 +1,14 @@
 # Job Finder Kit — job search with an AI helper
 
+*[Читать по-русски](README.ru.md)*
+
 Think of this folder as a **notebook on your computer**: one table lists jobs, other pages hold draft cover letters and CVs. Next to you sits an **AI helper inside Cursor** (a chat app for work with files). It finds jobs and writes drafts; **you** read, fix, and click “apply” yourself. It must **not invent experience** — only your real facts.
 
 You don’t need to be a programmer. You need Cursor, the internet, and time to fill in your details once.
 
 **This kit is local-first** — see [Local use (important)](#local-use-important) below.
+
+**Not on Cursor?** `AGENTS.md` is a shared convention read by several AI coding tools (Cursor, Claude Code, Windsurf, and others). Any of them works here — just swap the chat shortcut in [CURSOR.md](CURSOR.md) for your tool's equivalent.
 
 ---
 
@@ -70,7 +74,7 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 
 | Where you apply | What we prepare in the folder | Your CV at apply time |
 |-----------------|------------------------------|------------------------|
-| **hh.ru** | `<#>-cover.md` + notes | CV already on hh (from [cv-base-ru.md](cv-base-ru.md)) |
+| **hh.ru** | `<#>-cover.md` + notes | CV already on hh (from your `cv-base-ru.md`, see [cv-base-ru.example.md](cv-base-ru.example.md)) |
 | **Others** (email, Lever, Greenhouse…) | `<#>-cover.md` + `<#>-cv.md` + PDF if needed | You attach files yourself |
 
 ---
@@ -83,11 +87,12 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 | **[AGENTS.md](AGENTS.md)** | Rules for the helper (what jobs to find, how to write). **Fill in for you** |
 | **[CURSOR.md](CURSOR.md)** | How to open chat and which keys to press |
 | **[FLOW.md](FLOW.md)** | Workflow diagrams |
-| **cv-base-en.md** | Your main CV (English) — source for everything |
-| **cv-base-ru.md** | Russian resume template for hh.ru (section headers stay in Russian) |
+| **[cv-base-en.example.md](cv-base-en.example.md)** | Template — copy to `cv-base-en.md` (gitignored) and fill in your real CV |
+| **[cv-base-ru.example.md](cv-base-ru.example.md)** | Russian template for hh.ru — copy to `cv-base-ru.md` (gitignored); section headers stay in Russian |
 | **tracker.md** | Your job list (table only) |
 | **generate_cv_unified.py** | Text CV → one-page PDF |
 | **generate_cover_pdf.py** | Cover letter PDF — only when you ask |
+| **validate_tracker.py** | Checks tracker.md rows match `applications/<#>-<slug>/` folders (catches typos/duplicates) |
 | **applications/** | One subfolder per job: `applications/<#>-<slug>/` |
 | **applications/_example-do-not-track/** | Example only — don’t add to the tracker |
 

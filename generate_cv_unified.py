@@ -51,22 +51,21 @@ Line 3:  Location · [Telegram](...) · [email](...) · [site](...)
 """
 
 import io
-import os
-import platform
 import re
 import sys
 from pathlib import Path
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.pdfmetrics import registerFontFamily
-from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import HRFlowable, Paragraph, SimpleDocTemplate
 
-import fitz  # PyMuPDF
+from pdf_common import LINK_COLOR, make_style, process_inline, resolve_app_md
+
+try:
+    import fitz  # PyMuPDF
+    HAS_FITZ = True
+except ImportError:
+    HAS_FITZ = False
 
 # ── User settings (edit before first PDF) ─────────────────────────────────────
 PDF_FILENAME = "Your_Name_CV.pdf"
@@ -76,146 +75,7 @@ URL_FRAGMENTS = [
     "example.com",
 ]
 
-# ── Fonts (macOS / Linux / Windows) ───────────────────────────────────────────
-def _build_font_candidates() -> list[tuple[Path, dict[str, str]]]:
-    candidates: list[tuple[Path, dict[str, str]]] = []
-    env_dir = os.environ.get("JOB_FINDER_FONT_DIR")
-    if env_dir:
-        custom = Path(env_dir)
-        for file_map in (
-            _MACOS_FONT_FILES,
-            _WINDOWS_FONT_FILES,
-            _LIBERATION_FONT_FILES,
-            _DEJAVU_FONT_FILES,
-        ):
-            candidates.append((custom, file_map))
-
-    system = platform.system()
-    if system == "Darwin":
-        candidates.append(
-            (Path("/System/Library/Fonts/Supplemental"), _MACOS_FONT_FILES)
-        )
-    elif system == "Windows":
-        windir = os.environ.get("WINDIR", r"C:\Windows")
-        candidates.append((Path(windir) / "Fonts", _WINDOWS_FONT_FILES))
-    else:
-        candidates.extend(
-            [
-                (
-                    Path("/usr/share/fonts/truetype/liberation"),
-                    _LIBERATION_FONT_FILES,
-                ),
-                (
-                    Path("/usr/share/fonts/truetype/dejavu"),
-                    _DEJAVU_FONT_FILES,
-                ),
-            ]
-        )
-    return candidates
-
-
-_MACOS_FONT_FILES = {
-    "Arial": "Arial.ttf",
-    "Arial-Bold": "Arial Bold.ttf",
-    "Arial-Italic": "Arial Italic.ttf",
-    "Arial-BoldItalic": "Arial Bold Italic.ttf",
-}
-
-_WINDOWS_FONT_FILES = {
-    "Arial": "arial.ttf",
-    "Arial-Bold": "arialbd.ttf",
-    "Arial-Italic": "ariali.ttf",
-    "Arial-BoldItalic": "arialbi.ttf",
-}
-
-_LIBERATION_FONT_FILES = {
-    "Arial": "LiberationSans-Regular.ttf",
-    "Arial-Bold": "LiberationSans-Bold.ttf",
-    "Arial-Italic": "LiberationSans-Italic.ttf",
-    "Arial-BoldItalic": "LiberationSans-BoldItalic.ttf",
-}
-
-_DEJAVU_FONT_FILES = {
-    "Arial": "DejaVuSans.ttf",
-    "Arial-Bold": "DejaVuSans-Bold.ttf",
-    "Arial-Italic": "DejaVuSans-Oblique.ttf",
-    "Arial-BoldItalic": "DejaVuSans-BoldOblique.ttf",
-}
-
-
-def _register_from_dir(font_dir: Path, files: dict[str, str]) -> bool:
-    if not font_dir.is_dir():
-        return False
-    paths = {name: font_dir / fname for name, fname in files.items()}
-    missing = [str(p) for p in paths.values() if not p.is_file()]
-    if missing:
-        return False
-    for logical_name, path in paths.items():
-        pdfmetrics.registerFont(TTFont(logical_name, str(path)))
-    registerFontFamily(
-        "Arial",
-        normal="Arial",
-        bold="Arial-Bold",
-        italic="Arial-Italic",
-        boldItalic="Arial-BoldItalic",
-    )
-    return True
-
-
-def register_fonts() -> Path:
-    """Register Arial (or equivalent) for PDF rendering. Exits on failure."""
-    tried: list[str] = []
-    for font_dir, file_map in _build_font_candidates():
-        tried.append(str(font_dir))
-        if _register_from_dir(font_dir, file_map):
-            return font_dir
-    system = platform.system()
-    hint = (
-        "Set JOB_FINDER_FONT_DIR to a folder containing Arial .ttf files.\n"
-        "  macOS: /System/Library/Fonts/Supplemental\n"
-        "  Windows: C:\\Windows\\Fonts (arial.ttf, arialbd.ttf, …)\n"
-        "  Linux: /usr/share/fonts/truetype/liberation or dejavu\n"
-        "  PowerShell: $env:JOB_FINDER_FONT_DIR = 'C:\\Windows\\Fonts'"
-    )
-    if system == "Windows":
-        hint += "\n  Install Python from python.org with 'Add python.exe to PATH'."
-    print("Error: could not load fonts. Tried:\n  " + "\n  ".join(tried), file=sys.stderr)
-    print(hint, file=sys.stderr)
-    sys.exit(1)
-
-
-FONT_DIR = register_fonts()
-
-LINK_COLOR = "#1155cc"
 W, H = A4
-
-
-# ── Markdown link → reportlab link ────────────────────────────────────────────
-def md_links_to_rl(text: str) -> str:
-    """Convert [label](url) to reportlab <link> tags."""
-    def _replace(m):
-        label, url = m.group(1), m.group(2)
-        return f'<link href="{url}"><font color="{LINK_COLOR}">{label}</font></link>'
-    return re.sub(r'\[([^\]]+)\]\(([^)]+)\)', _replace, text)
-
-
-def escape_xml(text: str) -> str:
-    """Escape & < > but preserve already-converted <link> and <font> tags."""
-    # We convert md links first, then escape bare & and < > that aren't tags
-    text = text.replace("&", "&amp;")
-    # Un-escape our already-inserted tags
-    text = text.replace("&amp;lt;", "<").replace("&amp;gt;", ">")
-    return text
-
-
-def process_inline(text: str) -> str:
-    """Convert markdown inline formatting to reportlab XML."""
-    text = md_links_to_rl(text)
-    # Bold: **text**
-    text = re.sub(r'\*\*([^*]+)\*\*', r'<b>\1</b>', text)
-    # Escape bare & that aren't already part of an entity
-    text = re.sub(r'&(?!amp;|lt;|gt;|quot;|apos;|#)', '&amp;', text)
-    return text
 
 
 # ── cv.md parser ──────────────────────────────────────────────────────────────
@@ -395,15 +255,9 @@ def build_story(cv: dict, base: float, section_space: float, leading_ratio: floa
         "education":  "Образование" if ru else "Education",
     }
     def style(name, **kw):
-        d = dict(
-            fontName="Arial",
-            fontSize=base,
-            leading=base * leading_ratio,
-            textColor=colors.HexColor("#333333"),
-            alignment=TA_LEFT,
-        )
+        d = dict(fontSize=base, leading=base * leading_ratio)
         d.update(kw)
-        return ParagraphStyle(name, **d)
+        return make_style(name, **d)
 
     s_name     = style("Name",     fontName="Arial-Bold",   fontSize=base*1.75, leading=base*2.1,  spaceAfter=1)
     s_role     = style("Role",     fontSize=base*1.05,      leading=base*1.3,   spaceAfter=2,      textColor=colors.HexColor("#555555"))
@@ -477,6 +331,7 @@ def try_build(cv: dict, margin: float, base: float, sec_sp: float, lead_r: float
 
 
 def check(pdf_bytes: bytes, margin: float, required_urls: list[str]) -> dict:
+    """Verify page count, margins, and links. Requires PyMuPDF (fitz)."""
     doc = fitz.open(stream=pdf_bytes, filetype="pdf")
     r = {"pages": doc.page_count, "pages_ok": doc.page_count == 1}
     if doc.page_count >= 1:
@@ -501,21 +356,6 @@ def check(pdf_bytes: bytes, margin: float, required_urls: list[str]) -> dict:
         r["links_ok"] = all(any(req in u for u in uris) for req in required_urls)
     doc.close()
     return r
-
-
-def resolve_app_md(folder: Path, kind: str) -> Path:
-    """Resolve <num>-<kind>.md inside an application folder."""
-    if m := re.match(r"^(\d+)-", folder.name):
-        numbered = folder / f"{m.group(1)}-{kind}.md"
-        if numbered.exists():
-            return numbered
-    plain = folder / f"{kind}.md"
-    if plain.exists():
-        return plain
-    hits = sorted(folder.glob(f"*-{kind}.md"))
-    if len(hits) == 1:
-        return hits[0]
-    raise FileNotFoundError(f"No {kind}.md found in {folder}")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -564,24 +404,40 @@ def main():
     ]
 
     chosen = None
-    for base, sec_sp, lead_r in configs:
-        pdf_bytes = try_build(cv, MARGIN, base, sec_sp, lead_r)
-        req = check(pdf_bytes, MARGIN, url_fragments)
-        status = "✓" if req["pages_ok"] else f"✗ ({req['pages']}p)"
-        print(
-            f"  base={base:4.1f}pt  sec={sec_sp}pt  lead={lead_r}  →  "
-            f"pages={status}  "
-            f"L={req.get('left_margin','?')}  R={req.get('right_margin','?')}  "
-            f"T={req.get('top_margin','?')}  B={req.get('bottom_margin','?')}  "
-            f"links={req.get('link_count','?')}{'✓' if req.get('links_ok') else '✗'}"
-        )
-        if req.get("pages_ok") and req.get("margins_ok") and req.get("links_ok"):
-            chosen = (base, sec_sp, lead_r, pdf_bytes, req)
-            break
+    if HAS_FITZ:
+        for base, sec_sp, lead_r in configs:
+            pdf_bytes = try_build(cv, MARGIN, base, sec_sp, lead_r)
+            req = check(pdf_bytes, MARGIN, url_fragments)
+            status = "✓" if req["pages_ok"] else f"✗ ({req['pages']}p)"
+            print(
+                f"  base={base:4.1f}pt  sec={sec_sp}pt  lead={lead_r}  →  "
+                f"pages={status}  "
+                f"L={req.get('left_margin','?')}  R={req.get('right_margin','?')}  "
+                f"T={req.get('top_margin','?')}  B={req.get('bottom_margin','?')}  "
+                f"links={req.get('link_count','?')}{'✓' if req.get('links_ok') else '✗'}"
+            )
+            if req.get("pages_ok") and req.get("margins_ok") and req.get("links_ok"):
+                chosen = (base, sec_sp, lead_r, pdf_bytes, req)
+                break
 
-    if chosen is None:
-        print("\n❌  No config fit — content may be too long for one page.")
-        sys.exit(1)
+        if chosen is None:
+            print("\n❌  No config fit — content may be too long for one page.")
+            sys.exit(1)
+    else:
+        print(
+            "Note: PyMuPDF not installed — skipping automatic page-fit/margin/link\n"
+            "      checks. Install it (`pip install pymupdf`) for verification, or\n"
+            "      open the PDF and check it by eye: one page, text inside the\n"
+            "      margins, links clickable."
+        )
+        base, sec_sp, lead_r = configs[len(configs) // 2]
+        pdf_bytes = try_build(cv, MARGIN, base, sec_sp, lead_r)
+        req = {
+            "pages": "?", "left_margin": "?", "right_margin": "?",
+            "top_margin": "?", "bottom_margin": "?",
+            "link_count": "?", "links_ok": "?",
+        }
+        chosen = (base, sec_sp, lead_r, pdf_bytes, req)
 
     base, sec_sp, lead_r, pdf_bytes, req = chosen
     output_pdf.write_bytes(pdf_bytes)

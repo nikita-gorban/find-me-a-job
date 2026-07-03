@@ -1,0 +1,41 @@
+name: Smoke test
+
+# Regression check for the PDF generators: renders the example application
+# folder (applications/_example-do-not-track/) and fails if either script
+# errors or produces no PDF. Catches parser/rendering breakage before it
+# reaches people following ONBOARDING.md.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  generate-example-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system fonts (Linux font path used by pdf_common.py)
+        run: sudo apt-get update && sudo apt-get install -y fonts-liberation
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate example CV PDF
+        run: python3 generate_cv_unified.py applications/_example-do-not-track
+
+      - name: Generate example cover letter PDF
+        run: python3 generate_cover_pdf.py applications/_example-do-not-track
+
+      - name: Verify PDFs were created
+        run: |
+          test -s applications/_example-do-not-track/Your_Name_CV.pdf
+          test -s applications/_example-do-not-track/Your_Name_Cover_Letter.pdf
+
+      - name: Validate tracker.md / applications/ consistency
+        run: python3 validate_tracker.py

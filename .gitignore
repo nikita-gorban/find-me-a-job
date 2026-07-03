@@ -12,3 +12,8 @@ applications/*
 !applications/_example-do-not-track/
 !applications/_example-do-not-track/*.md
 applications/**/*.pdf
+
+# Your real resume — copy from the .example template (cv-base-en.example.md /
+# cv-base-ru.example.md), fill in your facts, keep the working file local only.
+cv-base-en.md
+cv-base-ru.md

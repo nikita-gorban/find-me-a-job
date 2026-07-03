@@ -78,13 +78,18 @@ Also at the top of [generate_cv_unified.py](generate_cv_unified.py) (if you will
 
 ## Step 3. Your resume — replace the template
 
-Open [cv-base-en.md](cv-base-en.md) — your **English** master resume.
+Copy the template to your **working file** first — the working file is
+gitignored, so your real resume never gets committed to the public repo:
+
+- [cv-base-en.example.md](cv-base-en.example.md) → save a copy as `cv-base-en.md`
+
+Open `cv-base-en.md` — your **English** master resume.
 
 - Remove placeholder examples.
 - Write **only true facts**: name, experience, skills.
 - Short experience is fine — honesty beats padding.
 
-If you use **hh.ru**, do the same in [cv-base-ru.md](cv-base-ru.md) (Russian section headers stay Russian; paste the text into your hh profile).
+If you use **hh.ru**, do the same with [cv-base-ru.example.md](cv-base-ru.example.md) → save a copy as `cv-base-ru.md` (Russian section headers stay Russian; paste the text into your hh profile).
 
 Delete the one-line reminder at the top of `cv-base-ru.md` after you read it.
 

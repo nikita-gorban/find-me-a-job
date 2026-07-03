@@ -1,2 +1,6 @@
 reportlab>=4.0
+
+# Optional: enables automatic page-fit/margin/link verification in
+# generate_cv_unified.py. Without it the script still produces a PDF,
+# just skips the self-check (see printed note).
 pymupdf>=1.23

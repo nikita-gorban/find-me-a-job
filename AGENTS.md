@@ -62,6 +62,7 @@ Replace bracketed placeholders with your values:
 - `skip` — transient only, before deleting the row (unapplied vacancies).
 - **Match** column: `High` / `Medium` / `Low` (stretch or risk notes go in `<#>-vacancy.md`, not under the table).
 - Do not assign tracker numbers to folders under `applications/_*` (examples only).
+- If numbers ever look out of sync (duplicate, missing folder, orphan folder), run `python3 validate_tracker.py` to check.
 
 ## File conventions
 - **Vacancy folder:** `applications/<#>-<slug>/`, where `#` is the row number in `tracker.md`, `slug` is a short Latin name (`acme-pm-digital`).

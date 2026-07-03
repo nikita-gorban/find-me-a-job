@@ -13,39 +13,20 @@ Writes: <folder>/<PDF_COVER_FILENAME>  (see USER SETTINGS below)
 """
 
 import io
-import re
 import sys
 from pathlib import Path
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import HRFlowable, Paragraph, SimpleDocTemplate
 
-import generate_cv_unified  # registers fonts
-from generate_cv_unified import LINK_COLOR, resolve_app_md
+from pdf_common import make_style, process_inline, resolve_app_md
 
 # ── User settings (edit before first PDF) ─────────────────────────────────────
 PDF_COVER_FILENAME = "Your_Name_Cover_Letter.pdf"
 
 MARGIN = 50
 BASE = 11.0
-
-
-def md_links_to_rl(text: str) -> str:
-    def _replace(m):
-        label, url = m.group(1), m.group(2)
-        return f'<link href="{url}"><font color="{LINK_COLOR}">{label}</font></link>'
-
-    return re.sub(r"\[([^\]]+)\]\(([^)]+)\)", _replace, text)
-
-
-def process_inline(text: str) -> str:
-    text = md_links_to_rl(text)
-    text = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", text)
-    text = re.sub(r"&(?!amp;|lt;|gt;|quot;|apos;|#)", "&amp;", text)
-    return text
 
 
 def parse_cover(md_path: Path) -> dict:
@@ -85,15 +66,9 @@ def parse_cover(md_path: Path) -> dict:
 
 def build_story(cover: dict):
     def style(name, **kw):
-        d = dict(
-            fontName="Arial",
-            fontSize=BASE,
-            leading=BASE * 1.45,
-            textColor=colors.HexColor("#333333"),
-            alignment=TA_LEFT,
-        )
+        d = dict(fontSize=BASE, leading=BASE * 1.45)
         d.update(kw)
-        return ParagraphStyle(name, **d)
+        return make_style(name, **d)
 
     s_name = style(
         "Name",
