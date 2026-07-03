@@ -7,4 +7,4 @@
 
 Short description of responsibilities and requirements for the agent’s reference.
 
-When you apply for a real job, copy this folder layout to `applications/your-company-role/` (without the `_` prefix).
+When you apply for a real job, the helper creates a numbered folder — e.g. tracker row `#5` → `applications/5-acme-pm/5-vacancy.md` (without the `_` prefix on the folder name).

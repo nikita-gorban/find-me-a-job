@@ -240,23 +240,23 @@ def main() -> None:
     texts += box_text(n_track, [("Vacancies in tracker.md (numbered table)", 13, "#0f172a")])
     texts += box_text(n_pick, [("You: I like #3 and #7", 13, "#0f172a")])
     texts += box_text(n_draft, [
-        ("Helper: applications/company-role/", 13, "#0f172a"),
-        ("vacancy.md · cover.md · cv.md (if not hh)", 11, "#475569"),
+        ("Helper: applications/5-acme-pm/", 13, "#0f172a"),
+        ("5-vacancy.md · 5-cover.md · 5-cv.md (if not hh)", 11, "#475569"),
     ])
     texts += box_text(n_review, [("You read, edit, say OK", 13, "#0f172a")])
     texts.append(diamond_text(d_where, "Where to apply?"))
     texts += branch_label(195, 944, "hh.ru")
     texts += branch_label(725, 944, "other site")
     texts += box_text(n_hh, [
-        ("cover.md + resume", 13, "#0f172a"),
+        ("5-cover.md + resume", 13, "#0f172a"),
         ("on hh (cv-base-ru)", 11, "#475569"),
     ])
     texts += box_text(n_other, [
-        ("cv.md, PDF if needed", 13, "#0f172a"),
+        ("5-cv.md, PDF if needed", 13, "#0f172a"),
         ("(generate_cv_unified.py)", 11, "#475569"),
     ])
     texts += box_text(n_apply, [("You apply on the employer site", 13, "#0f172a")])
-    texts += box_text(n_done, [("Set status applied in tracker", 13, "#0f172a")])
+    texts += box_text(n_done, [("Set status applied (+ date) in tracker", 13, "#0f172a")])
 
     texts += [
         plain_text(CX, 1328, "Key files: tracker.md · AGENTS.md · cv-base · applications/",

@@ -37,7 +37,7 @@ More about chat and keys: [CURSOR.md](CURSOR.md).
 
 1. The **helper** finds jobs and writes them into [tracker.md](tracker.md) (numbered table).
 2. **You** say: “I like #3 and #7.”
-3. The **helper** creates drafts under `applications/`: job notes, cover letter, sometimes a tailored CV.
+3. The **helper** creates drafts under `applications/<#>-<slug>/`: job notes, cover letter, sometimes a tailored CV.
 4. **You** edit the text until it sounds like you, then say “OK” or “make it shorter.”
 5. If you need a **PDF CV** (not for hh.ru) — one terminal command (explained in ONBOARDING).
 6. **You** submit the application on the employer’s site.
@@ -50,8 +50,8 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 
 | Where you apply | What we prepare in the folder | Your CV at apply time |
 |-----------------|------------------------------|------------------------|
-| **hh.ru** | Letter + notes | CV already on hh (from [cv-base-ru.md](cv-base-ru.md)) |
-| **Others** (email, Lever, Greenhouse…) | Letter + CV file + PDF if needed | You attach files yourself |
+| **hh.ru** | `<#>-cover.md` + notes | CV already on hh (from [cv-base-ru.md](cv-base-ru.md)) |
+| **Others** (email, Lever, Greenhouse…) | `<#>-cover.md` + `<#>-cv.md` + PDF if needed | You attach files yourself |
 
 ---
 
@@ -68,7 +68,7 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 | **tracker.md** | Your job list (table only) |
 | **generate_cv_unified.py** | Text CV → one-page PDF |
 | **generate_cover_pdf.py** | Cover letter PDF — only when you ask |
-| **applications/** | One subfolder per job |
+| **applications/** | One subfolder per job: `applications/<#>-<slug>/` |
 | **applications/_example-do-not-track/** | Example only — don’t add to the tracker |
 
 `.md` files are normal text — open and edit in Cursor like a notepad.
@@ -83,6 +83,7 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 | `prep` | Drafting cv/cover or waiting for your edits |
 | `ready` | CV PDF ready (or hh: cover ready) |
 | `applied` | You already applied |
+| `declined` | Rejected or ghosted — row stays for history |
 
 ---
 

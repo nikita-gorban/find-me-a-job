@@ -2,12 +2,12 @@
 Unified CV PDF generator.
 
 Usage (macOS / Linux):
-    python3 generate_cv_unified.py applications/company-role
+    python3 generate_cv_unified.py applications/5-acme-pm
 
 Usage (Windows):
-    py -3 generate_cv_unified.py applications/company-role
+    py -3 generate_cv_unified.py applications/5-acme-pm
 
-Reads:  <folder>/cv.md
+Reads:  <folder>/<num>-cv.md (or legacy cv.md)
 Writes: <folder>/<PDF_FILENAME>  (see USER SETTINGS below)
 
 Fonts (auto-detected): macOS Supplemental Arial; Windows %WINDIR%\\Fonts;
@@ -503,12 +503,27 @@ def check(pdf_bytes: bytes, margin: float, required_urls: list[str]) -> dict:
     return r
 
 
+def resolve_app_md(folder: Path, kind: str) -> Path:
+    """Resolve <num>-<kind>.md inside an application folder."""
+    if m := re.match(r"^(\d+)-", folder.name):
+        numbered = folder / f"{m.group(1)}-{kind}.md"
+        if numbered.exists():
+            return numbered
+    plain = folder / f"{kind}.md"
+    if plain.exists():
+        return plain
+    hits = sorted(folder.glob(f"*-{kind}.md"))
+    if len(hits) == 1:
+        return hits[0]
+    raise FileNotFoundError(f"No {kind}.md found in {folder}")
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 def main():
     if len(sys.argv) < 2:
         print("Usage: python3 generate_cv_unified.py <application-folder>")
         print("       py -3 generate_cv_unified.py <application-folder>   (Windows)")
-        print("  e.g. python3 generate_cv_unified.py applications/acme-pm")
+        print("  e.g. python3 generate_cv_unified.py applications/5-acme-pm")
         sys.exit(1)
 
     folder = Path(sys.argv[1])
@@ -516,9 +531,10 @@ def main():
         # Resolve relative to this script's directory
         folder = Path(__file__).parent / folder
 
-    cv_md = folder / "cv.md"
-    if not cv_md.exists():
-        print(f"Error: {cv_md} not found")
+    try:
+        cv_md = resolve_app_md(folder, "cv")
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
         sys.exit(1)
 
     output_pdf = folder / PDF_FILENAME

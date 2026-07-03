@@ -31,7 +31,7 @@ flowchart TD
   a([Start]) --> find[Helper adds vacancies to tracker.md]
   find --> pick[You pick numbers · e.g. #3 #7]
   pick --> draft[Helper writes drafts in applications/]
-  draft --> read[You read cover.md and cv.md if needed]
+  draft --> read[You read <#>-cover.md and <#>-cv.md if needed]
   read --> ok{Looks good?}
   ok -->|No| fix[Ask for edits in chat]
   fix --> read
@@ -55,10 +55,10 @@ flowchart LR
   subgraph tracker [tracker.md]
     T[Table #1 #2 …]
   end
-  subgraph app [applications/company-role/]
-    V[vacancy.md · notes]
-    C[cover.md · letter]
-    CV[cv.md · tailored resume]
+  subgraph app [applications/5-acme-pm/]
+    V[5-vacancy.md · notes]
+    C[5-cover.md · letter]
+    CV[5-cv.md · tailored resume]
     P[PDF · if generated]
   end
   T --> app
@@ -71,7 +71,7 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  T[tracker] --> C[cover.md]
+  T[tracker] --> C[5-cover.md]
   B[cv-base-ru on hh site] --> H[Apply on hh.ru]
   C --> H
 ```

@@ -3,12 +3,12 @@
 Cover letter PDF generator.
 
 Usage (macOS / Linux):
-    python3 generate_cover_pdf.py applications/company-role
+    python3 generate_cover_pdf.py applications/5-acme-pm
 
 Usage (Windows):
-    py -3 generate_cover_pdf.py applications/company-role
+    py -3 generate_cover_pdf.py applications/5-acme-pm
 
-Reads:  <folder>/cover.md
+Reads:  <folder>/<num>-cover.md (or legacy cover.md)
 Writes: <folder>/<PDF_COVER_FILENAME>  (see USER SETTINGS below)
 """
 
@@ -24,7 +24,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import HRFlowable, Paragraph, SimpleDocTemplate
 
 import generate_cv_unified  # registers fonts
-from generate_cv_unified import LINK_COLOR
+from generate_cv_unified import LINK_COLOR, resolve_app_md
 
 # ── User settings (edit before first PDF) ─────────────────────────────────────
 PDF_COVER_FILENAME = "Your_Name_Cover_Letter.pdf"
@@ -163,9 +163,10 @@ def main():
     if not folder.is_absolute():
         folder = Path(__file__).parent / folder
 
-    cover_md = folder / "cover.md"
-    if not cover_md.exists():
-        print(f"Error: {cover_md} not found")
+    try:
+        cover_md = resolve_app_md(folder, "cover")
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
         sys.exit(1)
 
     output_pdf = folder / PDF_COVER_FILENAME

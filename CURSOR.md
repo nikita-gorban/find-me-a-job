@@ -21,14 +21,14 @@
 ```
 
 ```
-@AGENTS.md Generate PDF for applications/company-role
+@AGENTS.md Generate PDF for applications/5-acme-pm
 ```
-(after `cv.md` is approved; non-hh only)
+(after `<#>-cv.md` is approved; non-hh only)
 
 **hh.ru example:**
 
 ```
-@AGENTS.md Vacancy #3 is hh.ru — cover only, no cv.md or PDF.
+@AGENTS.md Vacancy #3 is hh.ru — cover only, no <#>-cv.md or PDF.
 ```
 
 **Windows:** Explorer unzip is fine; Python — `py -3`, venv — see ONBOARDING. WSL not required. Prefer a project path without non-Latin characters.

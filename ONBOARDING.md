@@ -181,14 +181,14 @@ When you pick vacancy numbers:
 Prepare cover for vacancy #1.
 ```
 
-Read `applications/.../cover.md`. Not happy? Say: “shorter”, “less formal”, “mention my Jira experience”.
+Read `applications/<#>-<slug>/<#>-cover.md`. Not happy? Say: “shorter”, “less formal”, “mention my Jira experience”.
 
 ### hh.ru vs other sites
 
 | Site | What the helper creates |
 |------|-------------------------|
-| **hh.ru** | Letter (`cover.md`) + notes; resume stays on hh from `cv-base-ru` |
-| **Other** | Letter + tailored `cv.md` → you review → PDF command |
+| **hh.ru** | `<#>-cover.md` + notes; resume stays on hh from `cv-base-ru` |
+| **Other** | `<#>-cover.md` + tailored `<#>-cv.md` → you review → PDF command |
 
 The `_example-do-not-track` folder is a **toy example** — do not add it to the tracker.
 
@@ -210,7 +210,7 @@ The `_example-do-not-track` folder is a **toy example** — do not add it to the
 2. Tell the helper vacancy numbers.
 3. Edit drafts until they sound like you.
 4. **You** click apply on the employer site.
-5. Set status to `applied` after you submit.
+5. Set status to `applied` (and **Applied** date) after you submit; use `declined` if rejected — do not delete the row.
 
 Keep the folder in a **private** cloud backup or git; never store passwords in files.
 

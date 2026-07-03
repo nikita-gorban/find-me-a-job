@@ -76,20 +76,20 @@
   <text x="460" y="558" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#475569">Agent mode · Cmd+L / Ctrl+L</text>
   <text x="460" y="663" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">Vacancies in tracker.md (numbered table)</text>
   <text x="460" y="741" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">You: I like #3 and #7</text>
-  <text x="460" y="817" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">Helper: applications/company-role/</text>
-  <text x="460" y="832" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#475569">vacancy.md · cover.md · cv.md (if not hh)</text>
+  <text x="460" y="817" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">Helper: applications/5-acme-pm/</text>
+  <text x="460" y="832" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#475569">5-vacancy.md · 5-cover.md · 5-cv.md (if not hh)</text>
   <text x="460" y="907" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">You read, edit, say OK</text>
   <text x="460" y="991" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#0f172a">Where to apply?</text>
   <rect x="172.0" y="931" width="46.0" height="18" class="label-bg" rx="4"/>
   <text x="195" y="944" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#475569">hh.ru</text>
   <rect x="686.0" y="931" width="78.0" height="18" class="label-bg" rx="4"/>
   <text x="725" y="944" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#475569">other site</text>
-  <text x="163" y="1089" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">cover.md + resume</text>
+  <text x="163" y="1089" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">5-cover.md + resume</text>
   <text x="163" y="1104" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#475569">on hh (cv-base-ru)</text>
-  <text x="757" y="1089" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">cv.md, PDF if needed</text>
+  <text x="757" y="1089" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">5-cv.md, PDF if needed</text>
   <text x="757" y="1104" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#475569">(generate_cv_unified.py)</text>
   <text x="460" y="1203" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">You apply on the employer site</text>
-  <text x="460" y="1279" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">Set status applied in tracker</text>
+  <text x="460" y="1279" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#0f172a">Set status applied (+ date) in tracker</text>
   <text x="460" y="1328" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#0f172a">Key files: tracker.md · AGENTS.md · cv-base · applications/</text>
   <text x="460" y="1346" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#64748b">Details: ONBOARDING.md, README.md</text>
 </svg>
