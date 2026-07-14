@@ -72,8 +72,6 @@ Replace bracketed placeholders with your values:
   - `closed` — vacancy closed/expired (no application or process ended because posting closed)
   - `skip` — deliberately not pursuing; keep the row as history
 - **Never delete tracker rows** — including after rejection or vacancy closure; details and outcome → `applications/<#>-<slug>/<#>-vacancy.md`.
-- **Vacancy scan (optional):** see `automations/vacancy-scan.md` — local loop once per day, up to 7 new vacancies, no cover/cv/PDF.
-- **Applied review (optional):** see `automations/applied-status-check.md` — local loop every 2 days; ghost candidates after **14 days** without pipeline.
 - When adding a vacancy, create `applications/<#>-<slug>/<#>-vacancy.md` immediately (URL, fit, gaps, how to apply).
 - On rejection: status → `declined`, outcome and context in `applications/<#>-<slug>/<#>-vacancy.md`.
 - On vacancy closure: status → `closed`, date and context in `applications/<#>-<slug>/<#>-vacancy.md`.
@@ -104,7 +102,3 @@ Replace bracketed placeholders with your values:
 - Base CV: `cv-base-en.md` (most external applications), `cv-base-ru.md` (hh.ru one-click apply).
 - Per-vacancy paths: always `applications/<#>-<slug>/` with **forward slashes** (including on Windows).
 - Optional files with the same numeric prefix: `<#>-form-answers.md`, `<#>-interview-prep.md`, `<#>-email.md`, `<#>-company-brief.md`, `<#>-test-assignment.md`, `<#>-assets.md`, `<#>-projects.md`, `<#>-questionnaire.md`.
-
-## Optional automations
-
-Playbooks in `automations/` are **optional** local Cursor loops. They reference filters and fact rules from this file — do not duplicate or override them. See [`automations/README.md`](automations/README.md).

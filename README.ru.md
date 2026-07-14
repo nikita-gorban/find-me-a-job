@@ -94,7 +94,6 @@ cd find-me-a-job
 | **generate_cover_pdf.py** | PDF сопроводительного письма — только по запросу |
 | **validate_tracker.py** | Проверяет, что строки tracker.md совпадают с папками `applications/<#>-<slug>/` (ловит опечатки и дубли) |
 | **validate_application.py** | Проверяет одну вакансию перед статусом `ready` (файлы, длина cover, свежесть PDF) |
-| **automations/** | Опциональные playbooks для Cursor loops (ежедневный scan, ревью applied) — см. [automations/README.md](automations/README.md) |
 | **applications/** | Одна подпапка на вакансию: `applications/<#>-<slug>/` |
 | **applications/_example-do-not-track/** | Только пример — не добавляйте в трекер |
 

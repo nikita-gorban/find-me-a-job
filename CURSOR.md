@@ -10,8 +10,7 @@ Using a different AI coding tool? Any tool that reads `AGENTS.md` (Claude Code, 
 4. **Copy [cv-base-en.example.md](cv-base-en.example.md) → `cv-base-en.md` and fill it in** (and [cv-base-ru.example.md](cv-base-ru.example.md) → `cv-base-ru.md` if you use hh.ru). The working copies are gitignored — they never get committed.
 5. **Agent chat:** **Cmd+L** (macOS) or **Ctrl+L** (Windows/Linux). Use **Agent** mode, not Ask.
 6. **Rules context:** Cursor may load `AGENTS.md` automatically, but this is unreliable — **include `@AGENTS.md` in your first message**.
-7. **Optional loops:** daily vacancy scan and applied review — see [automations/README.md](automations/README.md) (requires filled User preferences).
-8. **Do not search for vacancies** until User preferences and cv-base are filled (see ONBOARDING).
+7. **Do not search for vacancies** until User preferences and cv-base are filled (see ONBOARDING).
 
 **First prompts:**
 

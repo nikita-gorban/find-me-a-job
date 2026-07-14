@@ -215,10 +215,6 @@ Read `applications/<#>-<slug>/<#>-cover.md`. Not happy? Say: “shorter”, “l
 
 The `_example-do-not-track` folder is a **toy example** — do not add it to the tracker.
 
-### Optional: daily vacancy scan
-
-If you use Cursor **Automations** or `/loop`, see [automations/vacancy-scan.md](automations/vacancy-scan.md). Fill User preferences in `AGENTS.md` first.
-
 ---
 
 ## You are done when…
