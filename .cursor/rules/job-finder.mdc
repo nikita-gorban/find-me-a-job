@@ -17,8 +17,11 @@ Full rules: **AGENTS.md** in project root. If context is missing, ask the user t
 7. Skip `applications/_*` folders in tracker numbering (examples only).
 
 ## Tracker statuses
-`new` · `prep` · `ready` · `applied` · `declined` — keep rows after `applied`/`declined`; delete only closed vacancies that were never applied (`new`/`prep`/`skip`).
+`new` · `prep` · `ready` · `applied` · `declined` · `closed` · `skip` — never delete tracker rows. Follow transitions in `AGENTS.md`.
 
-## Content
-- No fabrication; honest gaps; cover 3–5 sentences; cover language = vacancy posting language.
-- Wait for user approval before treating cover/cv as final.
+## Content guardrails
+1. Facts come only from `cv-base-en.md`, `cv-base-ru.md`, or explicit user corrections — never from another `applications/*-cv.md`.
+2. No fabrication; do not infer current employment from year ranges.
+3. CV/cover/PDF immutable after `applied` or `declined` unless the user explicitly requests a change.
+4. Before PDF generation, ensure the user saved manual edits; verify page, links, text, and freshness.
+5. Cover 3–5 sentences; cover language = vacancy posting language. Wait for user approval before treating materials as final.

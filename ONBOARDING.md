@@ -161,6 +161,8 @@ py -3 generate_cv_unified.py applications/_example-do-not-track
 
 You should get `Your_Name_CV.pdf` (rename later in the script).
 
+**PyMuPDF required:** the CV generator verifies one page, margins, links, and text. Install via `pip install -r requirements.txt`.
+
 **Font error?** On Windows, standard fonts usually work. If not, in PowerShell:
 
 ```powershell
@@ -212,6 +214,10 @@ Read `applications/<#>-<slug>/<#>-cover.md`. Not happy? Say: “shorter”, “l
 | **Other** | `<#>-cover.md` + tailored `<#>-cv.md` → you review → PDF command |
 
 The `_example-do-not-track` folder is a **toy example** — do not add it to the tracker.
+
+### Optional: daily vacancy scan
+
+If you use Cursor **Automations** or `/loop`, see [automations/vacancy-scan.md](automations/vacancy-scan.md). Fill User preferences in `AGENTS.md` first.
 
 ---
 

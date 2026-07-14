@@ -6,7 +6,7 @@
 2. After you approve `<#>-cover.md` (and `<#>-cv.md` on non-hh platforms), generate **CV PDF** when needed, then apply.
 3. Vacancy details live in `applications/<#>-<slug>/<#>-vacancy.md`, not here.
 
-**Statuses:** `new` · `prep` · `ready` · `applied` · `declined` (do **not** delete declined rows — see [AGENTS.md](AGENTS.md))
+**Statuses:** `new` · `prep` · `ready` · `applied` · `declined` · `closed` · `skip` — **never delete rows** (see [AGENTS.md](AGENTS.md))
 
 **Filters:** see [AGENTS.md](AGENTS.md) — e.g. full remote only; languages EN / RU / PT (A2).
 

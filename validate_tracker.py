@@ -1,101 +1,110 @@
 #!/usr/bin/env python3
-"""
-Tracker consistency check.
-
-Usage (macOS / Linux):
-    python3 validate_tracker.py
-
-Usage (Windows):
-    py -3 validate_tracker.py
-
-Cross-checks tracker.md row numbers against applications/<#>-<slug>/ folders:
-  - every tracker.md row number has a matching application folder
-  - every application folder (excluding applications/_*) has a matching row
-  - no duplicate numbers on either side
-Exits non-zero and lists the problems found; exits 0 with a summary otherwise.
-"""
+"""Validate tracker rows against numbered application folders."""
 
 import re
 import sys
+from collections import Counter
 from pathlib import Path
+from typing import Dict, List
 
 ROOT = Path(__file__).parent
 TRACKER = ROOT / "tracker.md"
 APPLICATIONS = ROOT / "applications"
+ACTIVE_STATUSES = {"new", "prep", "ready", "applied"}
+TERMINAL_STATUSES = {"declined", "closed", "skip"}
 
 
-def tracker_numbers() -> list[int]:
-    numbers = []
-    if not TRACKER.exists():
-        return numbers
+def tracker_rows() -> List[Dict[str, str]]:
+    rows = []
     for line in TRACKER.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line.startswith("|"):
+        if not re.match(r"^\|\s*\d+\s*\|", line):
             continue
-        cells = [c.strip() for c in line.strip("|").split("|")]
-        if not cells or not cells[0].isdigit():
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) < 11:
             continue
-        numbers.append(int(cells[0]))
-    return numbers
+        status_match = re.search(
+            r"`(new|prep|ready|applied|declined|closed|skip)`", cells[-1]
+        )
+        rows.append(
+            {
+                "number": cells[0],
+                "company": cells[1],
+                "role": cells[2],
+                "url": cells[8],
+                "date": cells[9],
+                "status": status_match.group(1) if status_match else "",
+            }
+        )
+    return rows
 
 
-def folder_numbers() -> list[int]:
-    numbers = []
-    if not APPLICATIONS.is_dir():
-        return numbers
+def numbered_folders() -> Dict[str, List[Path]]:
+    result: Dict[str, List[Path]] = {}
     for child in APPLICATIONS.iterdir():
         if not child.is_dir() or child.name.startswith("_"):
             continue
-        m = re.match(r"^(\d+)-", child.name)
-        if m:
-            numbers.append(int(m.group(1)))
-    return numbers
+        match = re.match(r"^(\d+)-", child.name)
+        if match:
+            result.setdefault(match.group(1), []).append(child)
+    return result
 
 
-def find_duplicates(nums: list[int]) -> list[int]:
-    seen, dupes = set(), set()
-    for n in nums:
-        if n in seen:
-            dupes.add(n)
-        seen.add(n)
-    return sorted(dupes)
+def main() -> int:
+    rows = tracker_rows()
+    folders = numbered_folders()
+    errors: List[str] = []
+    warnings: List[str] = []
 
+    duplicate_rows = sorted(
+        number for number, count in Counter(row["number"] for row in rows).items() if count > 1
+    )
+    if duplicate_rows:
+        errors.append(f"duplicate tracker numbers: {duplicate_rows}")
 
-def main():
-    t_nums = tracker_numbers()
-    f_nums = folder_numbers()
-    t_set, f_set = set(t_nums), set(f_nums)
+    duplicate_folders = sorted(number for number, paths in folders.items() if len(paths) > 1)
+    if duplicate_folders:
+        errors.append(f"duplicate application folder numbers: {duplicate_folders}")
 
-    problems = []
+    row_by_number = {row["number"]: row for row in rows}
+    for number, row in row_by_number.items():
+        matches = folders.get(number, [])
+        if not matches:
+            message = f"#{number} {row['status']}: no applications/{number}-* folder"
+            if row["status"] in ACTIVE_STATUSES:
+                errors.append(message)
+            else:
+                warnings.append(message)
+            continue
+        if len(matches) != 1:
+            continue
+        folder = matches[0]
+        vacancy = folder / f"{number}-vacancy.md"
+        if not vacancy.exists():
+            message = f"#{number}: missing exact file {vacancy.relative_to(ROOT)}"
+            if row["status"] in ACTIVE_STATUSES:
+                errors.append(message)
+            else:
+                warnings.append(message)
 
-    t_dupes = find_duplicates(t_nums)
-    if t_dupes:
-        problems.append(f"Duplicate row numbers in tracker.md: {t_dupes}")
+    for number, paths in folders.items():
+        if number not in row_by_number:
+            errors.append(
+                f"orphan numbered folder(s) without tracker row: "
+                f"{[str(path.relative_to(ROOT)) for path in paths]}"
+            )
 
-    f_dupes = find_duplicates(f_nums)
-    if f_dupes:
-        problems.append(f"Duplicate application folder numbers: {f_dupes}")
+    for warning in warnings:
+        print(f"WARNING: {warning}")
+    for error in errors:
+        print(f"ERROR: {error}")
 
-    missing_folders = sorted(t_set - f_set)
-    if missing_folders:
-        problems.append(
-            f"tracker.md rows with no applications/<#>-<slug>/ folder: {missing_folders}"
-        )
-
-    orphan_folders = sorted(f_set - t_set)
-    if orphan_folders:
-        problems.append(
-            f"applications/<#>-<slug>/ folders with no tracker.md row: {orphan_folders}"
-        )
-
-    if problems:
-        print("Tracker/applications mismatch:\n")
-        for p in problems:
-            print(f"  - {p}")
-        sys.exit(1)
-
-    print(f"OK — {len(t_set)} vacancy row(s), all matched to application folders.")
+    print(
+        f"\nChecked {len(rows)} tracker rows and "
+        f"{sum(len(paths) for paths in folders.values())} numbered folders: "
+        f"{len(errors)} error(s), {len(warnings)} warning(s)."
+    )
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

@@ -3,11 +3,12 @@ Unified CV PDF generator.
 
 Usage (macOS / Linux):
     python3 generate_cv_unified.py applications/5-acme-pm
+    python3 generate_cv_unified.py --allow-terminal-status applications/5-acme-pm
 
 Usage (Windows):
     py -3 generate_cv_unified.py applications/5-acme-pm
 
-Reads:  <folder>/<num>-cv.md (or legacy cv.md)
+Reads:  <folder>/<num>-cv.md (strict for numbered application folders)
 Writes: <folder>/<PDF_FILENAME>  (see USER SETTINGS below)
 
 Fonts (auto-detected): macOS Supplemental Arial; Windows %WINDIR%\\Fonts;
@@ -50,10 +51,15 @@ Line 3:  Location · [Telegram](...) · [email](...) · [site](...)
 <line>
 """
 
+import argparse
+import hashlib
 import io
+import os
 import re
 import sys
+from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -310,7 +316,9 @@ def build_story(cv: dict, base: float, section_space: float, leading_ratio: floa
     # Languages
     if cv["languages"]:
         story.append(Paragraph(_sec["languages"], s_section))
-        story.append(Paragraph("  ·  ".join(cv["languages"]), s_body))
+        for raw in cv["languages"]:
+            line = re.sub(r'^[-*]\s+', '', raw.strip())
+            story.append(Paragraph(process_inline(line), s_body))
 
     # Education
     if cv["education"]:
@@ -358,18 +366,76 @@ def check(pdf_bytes: bytes, margin: float, required_urls: list[str]) -> dict:
     return r
 
 
+def _plain_text(value: str) -> str:
+    value = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", value)
+    value = value.replace("**", "").replace("__", "").replace("*", "")
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def _normalise_text(value: str) -> str:
+    value = _plain_text(value).replace("–", "-").replace("—", "-")
+    return re.sub(r"\s+", " ", value).casefold()
+
+
+def expected_fragments(cv: dict) -> list[str]:
+    """Return source fragments that must survive PDF rendering."""
+    fragments = [cv["name"], cv["role"], cv["summary"]]
+    for job in cv["experience"]:
+        fragments.extend([job["role"], job["company"], job["years"], job["tagline"]])
+        fragments.extend(job["bullets"])
+    fragments.extend(cv["skills"])
+    fragments.extend(cv["languages"])
+    fragments.append(cv["education"])
+    return [fragment for fragment in fragments if _plain_text(fragment)]
+
+
+def verify_text(pdf_bytes: bytes, cv: dict) -> tuple[bool, list[str]]:
+    """Verify every meaningful Markdown fragment is present in extracted PDF text."""
+    doc = fitz.open(stream=pdf_bytes, filetype="pdf")
+    extracted = "\n".join(page.get_text() for page in doc)
+    doc.close()
+    haystack = _normalise_text(extracted)
+    missing = [
+        _plain_text(fragment)
+        for fragment in expected_fragments(cv)
+        if _normalise_text(fragment) not in haystack
+    ]
+    return not missing, missing
+
+
+def tracker_status(folder: Path) -> Optional[str]:
+    match = re.match(r"^(\d+)-", folder.name)
+    if not match:
+        return None
+    tracker = Path(__file__).parent / "tracker.md"
+    if not tracker.exists():
+        return None
+    number = match.group(1)
+    row_re = re.compile(rf"^\|\s*{re.escape(number)}\s*\|")
+    status_re = re.compile(r"`(new|prep|ready|applied|declined|closed|skip)`")
+    for line in tracker.read_text(encoding="utf-8").splitlines():
+        if row_re.match(line):
+            status_match = status_re.search(line)
+            return status_match.group(1) if status_match else None
+    return None
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python3 generate_cv_unified.py <application-folder>")
-        print("       py -3 generate_cv_unified.py <application-folder>   (Windows)")
-        print("  e.g. python3 generate_cv_unified.py applications/5-acme-pm")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="Generate and verify a one-page CV PDF.")
+    parser.add_argument("application_folder")
+    parser.add_argument(
+        "--allow-terminal-status",
+        action="store_true",
+        help="Allow regeneration for applied/declined applications after explicit user request.",
+    )
+    args = parser.parse_args()
 
-    folder = Path(sys.argv[1])
+    folder = Path(args.application_folder)
     if not folder.is_absolute():
         # Resolve relative to this script's directory
         folder = Path(__file__).parent / folder
+    folder = folder.resolve()
 
     try:
         cv_md = resolve_app_md(folder, "cv")
@@ -379,7 +445,22 @@ def main():
 
     output_pdf = folder / PDF_FILENAME
 
+    status = tracker_status(folder)
+    if status in {"applied", "declined"} and not args.allow_terminal_status:
+        print(
+            f"Error: tracker status is {status!r}; CV/PDF is immutable after submission. "
+            "Use --allow-terminal-status only after an explicit user request."
+        )
+        sys.exit(1)
+
+    source_bytes = cv_md.read_bytes()
+    source_hash = hashlib.sha256(source_bytes).hexdigest()
+    source_mtime_ns = cv_md.stat().st_mtime_ns
+    source_mtime = datetime.fromtimestamp(source_mtime_ns / 1_000_000_000).isoformat(
+        timespec="seconds"
+    )
     print(f"Parsing: {cv_md}")
+    print(f"Source: mtime={source_mtime} sha256={source_hash}")
     cv = parse_cv(cv_md)
 
     # Collect URLs to verify from the cv
@@ -403,50 +484,64 @@ def main():
         (7.5, 2, 1.14),
     ]
 
-    chosen = None
-    if HAS_FITZ:
-        for base, sec_sp, lead_r in configs:
-            pdf_bytes = try_build(cv, MARGIN, base, sec_sp, lead_r)
-            req = check(pdf_bytes, MARGIN, url_fragments)
-            status = "✓" if req["pages_ok"] else f"✗ ({req['pages']}p)"
-            print(
-                f"  base={base:4.1f}pt  sec={sec_sp}pt  lead={lead_r}  →  "
-                f"pages={status}  "
-                f"L={req.get('left_margin','?')}  R={req.get('right_margin','?')}  "
-                f"T={req.get('top_margin','?')}  B={req.get('bottom_margin','?')}  "
-                f"links={req.get('link_count','?')}{'✓' if req.get('links_ok') else '✗'}"
-            )
-            if req.get("pages_ok") and req.get("margins_ok") and req.get("links_ok"):
-                chosen = (base, sec_sp, lead_r, pdf_bytes, req)
-                break
+    if not HAS_FITZ:
+        print("Error: PyMuPDF is required for page, link, and text verification.")
+        print("Install it with: python3 -m pip install pymupdf")
+        sys.exit(1)
 
-        if chosen is None:
-            print("\n❌  No config fit — content may be too long for one page.")
-            sys.exit(1)
-    else:
-        print(
-            "Note: PyMuPDF not installed — skipping automatic page-fit/margin/link\n"
-            "      checks. Install it (`pip install pymupdf`) for verification, or\n"
-            "      open the PDF and check it by eye: one page, text inside the\n"
-            "      margins, links clickable."
-        )
-        base, sec_sp, lead_r = configs[len(configs) // 2]
+    chosen = None
+    for base, sec_sp, lead_r in configs:
         pdf_bytes = try_build(cv, MARGIN, base, sec_sp, lead_r)
-        req = {
-            "pages": "?", "left_margin": "?", "right_margin": "?",
-            "top_margin": "?", "bottom_margin": "?",
-            "link_count": "?", "links_ok": "?",
-        }
-        chosen = (base, sec_sp, lead_r, pdf_bytes, req)
+        req = check(pdf_bytes, MARGIN, url_fragments)
+        text_ok, missing = verify_text(pdf_bytes, cv)
+        page_status = "✓" if req["pages_ok"] else f"✗ ({req['pages']}p)"
+        print(
+            f"  base={base:4.1f}pt  sec={sec_sp}pt  lead={lead_r}  →  "
+            f"pages={page_status}  "
+            f"L={req.get('left_margin','?')}  R={req.get('right_margin','?')}  "
+            f"T={req.get('top_margin','?')}  B={req.get('bottom_margin','?')}  "
+            f"links={req.get('link_count','?')}{'✓' if req.get('links_ok') else '✗'}  "
+            f"text={'✓' if text_ok else '✗'}"
+        )
+        if (
+            req.get("pages_ok")
+            and req.get("margins_ok")
+            and req.get("links_ok")
+            and text_ok
+        ):
+            chosen = (base, sec_sp, lead_r, pdf_bytes, req)
+            break
+        if missing:
+            print(f"    missing text: {missing[0][:120]}")
+
+    if chosen is None:
+        print("\n❌  No config passed page, margin, link, and text verification.")
+        sys.exit(1)
 
     base, sec_sp, lead_r, pdf_bytes, req = chosen
-    output_pdf.write_bytes(pdf_bytes)
+    if cv_md.stat().st_mtime_ns != source_mtime_ns or hashlib.sha256(cv_md.read_bytes()).hexdigest() != source_hash:
+        print("Error: source Markdown changed during generation; save it and retry.")
+        sys.exit(1)
+
+    temp_pdf = output_pdf.with_name(f".{output_pdf.name}.tmp")
+    try:
+        temp_pdf.write_bytes(pdf_bytes)
+        os.replace(temp_pdf, output_pdf)
+    finally:
+        if temp_pdf.exists():
+            temp_pdf.unlink()
+
+    if output_pdf.stat().st_mtime_ns < source_mtime_ns:
+        print("Error: generated PDF is older than source Markdown.")
+        sys.exit(1)
 
     print(f"\n✅  Saved: {output_pdf}")
     print(f"   font={base}pt  section_space={sec_sp}pt  leading={lead_r}  margin={MARGIN}pt")
     print(f"   pages={req['pages']}  margins L/R/T/B: "
           f"{req['left_margin']}/{req['right_margin']}/{req['top_margin']}/{req['bottom_margin']}pt")
     print(f"   links: {req['link_count']} found  ok={req['links_ok']}")
+    print("   text: all source fragments found")
+    print(f"   freshness: pdf_mtime >= source_mtime ({output_pdf.stat().st_mtime_ns >= source_mtime_ns})")
 
 
 if __name__ == "__main__":

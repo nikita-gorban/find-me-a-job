@@ -25,6 +25,7 @@ pip install -r requirements.txt
   ```
 - If you touched `tracker.md` parsing or the `applications/` folder
   convention, run `python3 validate_tracker.py`.
+- Before marking an application `ready`, run `python3 validate_application.py <#>`.
 - CI (`.github/workflows/smoke-test.yml`) runs the same checks on every PR.
 - If you change user-facing workflow (`AGENTS.md`, `ONBOARDING.md`,
   `README.md`), update `README.ru.md` to match, or note in the PR that the

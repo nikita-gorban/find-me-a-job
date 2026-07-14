@@ -93,6 +93,8 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 | **generate_cv_unified.py** | Text CV → one-page PDF |
 | **generate_cover_pdf.py** | Cover letter PDF — only when you ask |
 | **validate_tracker.py** | Checks tracker.md rows match `applications/<#>-<slug>/` folders (catches typos/duplicates) |
+| **validate_application.py** | Checks one application folder before marking `ready` (files, cover length, PDF freshness) |
+| **automations/** | Optional Cursor loop playbooks (daily vacancy scan, applied review) — see [automations/README.md](automations/README.md) |
 | **applications/** | One subfolder per job: `applications/<#>-<slug>/` |
 | **applications/_example-do-not-track/** | Example only — don’t add to the tracker |
 
@@ -109,6 +111,8 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 | `ready` | CV PDF ready (or hh: cover ready) |
 | `applied` | You already applied |
 | `declined` | Rejected or ghosted — row stays for history |
+| `closed` | Vacancy closed/expired — row stays for history |
+| `skip` | Deliberately skipped — row stays for history |
 
 ---
 

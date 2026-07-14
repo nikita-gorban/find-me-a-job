@@ -93,6 +93,8 @@ cd find-me-a-job
 | **generate_cv_unified.py** | Текстовое резюме → одностраничный PDF |
 | **generate_cover_pdf.py** | PDF сопроводительного письма — только по запросу |
 | **validate_tracker.py** | Проверяет, что строки tracker.md совпадают с папками `applications/<#>-<slug>/` (ловит опечатки и дубли) |
+| **validate_application.py** | Проверяет одну вакансию перед статусом `ready` (файлы, длина cover, свежесть PDF) |
+| **automations/** | Опциональные playbooks для Cursor loops (ежедневный scan, ревью applied) — см. [automations/README.md](automations/README.md) |
 | **applications/** | Одна подпапка на вакансию: `applications/<#>-<slug>/` |
 | **applications/_example-do-not-track/** | Только пример — не добавляйте в трекер |
 
@@ -109,6 +111,8 @@ cd find-me-a-job
 | `ready` | PDF резюме готов (или на hh: cover готов) |
 | `applied` | Уже откликнулись |
 | `declined` | Отказ или тишина — строка остаётся для истории |
+| `closed` | Вакансия закрыта/снята — строка остаётся для истории |
+| `skip` | Сознательно не идём — строка остаётся для истории |
 
 ---
 

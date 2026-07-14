@@ -177,6 +177,10 @@ def resolve_app_md(folder: Path, kind: str) -> Path:
         numbered = folder / f"{m.group(1)}-{kind}.md"
         if numbered.exists():
             return numbered
+        raise FileNotFoundError(
+            f"Expected exact source file {numbered}; legacy fallback is disabled "
+            "for numbered application folders"
+        )
     plain = folder / f"{kind}.md"
     if plain.exists():
         return plain
