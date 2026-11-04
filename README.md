@@ -123,4 +123,6 @@ The helper does **not** apply for you and does **not** promise an offer. It save
 - Cover letters: **short**, about 3–5 sentences, in the **same language as the job ad**.
 - Python and PDF are **optional** — mainly if you apply outside hh and need a PDF file. See ONBOARDING.
 
+**Sharing this kit:** copy a short blurb from [SHARE.md](SHARE.md) (Russian + English).
+
 Stuck on a step? Ask in chat: “I’m on step X in ONBOARDING and …”

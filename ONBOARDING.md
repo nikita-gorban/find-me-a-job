@@ -61,13 +61,15 @@ Check: `tracker.md` and the `applications/` folder appear in the file list on th
 1. Open [AGENTS.md](AGENTS.md) (click on the left).
 2. Find the **User preferences** block.
 3. Replace text in `[square brackets]` with **your** values, for example:
+   - chat language (Russian / English / …);
    - target role (PM, coordinator…);
    - remote / location filters;
-   - which vacancy languages you accept;
+   - which vacancy languages you accept (do not leave the example as-is);
    - platforms (hh.ru vs international);
-   - cover letter tone.
+   - cover letter tone;
+   - if you write Russian covers in the first person — **gender** (`she` / `he`) for verb agreement.
 
-This is the helper’s standing instructions — without it, results will be generic.
+This is the helper’s standing instructions — without it, results will be generic. Leave no `[brackets]` unfilled before the first vacancy search.
 
 Also at the top of [generate_cv_unified.py](generate_cv_unified.py) (if you will build PDFs):
 

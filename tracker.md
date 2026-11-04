@@ -8,7 +8,7 @@
 
 **Statuses:** `new` · `prep` · `ready` · `applied` · `declined` · `closed` · `skip` — **never delete rows** (see [AGENTS.md](AGENTS.md))
 
-**Filters:** see [AGENTS.md](AGENTS.md) — e.g. full remote only; languages EN / RU / PT (A2).
+**Filters:** see **User preferences** in [AGENTS.md](AGENTS.md) (fill in before the first vacancy search).
 
 | Platform | Files |
 |----------|--------|

@@ -17,9 +17,9 @@ Replace bracketed placeholders with your values:
 - **Chat language:** `[English / Russian / …]`
 - **Roles:** `[e.g. Project Manager, Coordinator, Implementation PM]`
 - **Location / remote:** `[e.g. full remote worldwide; EU timezone; exclude hybrid with regular onsite]`
-- **Language requirements for vacancies:** `[e.g. accept only postings that require EN, RU, and/or PT up to A2 — exclude mandatory DE, FR, UA native, etc.]`
+- **Language requirements for vacancies:** `[e.g. EN only; or EN+RU; list languages you accept and any hard excludes]`
 - **Platforms:** `[hh.ru, Lever, Greenhouse, Djinni, email, …]`
-- **Cover letter:** `[~3–5 sentences; tone: direct / formal; if Russian first person: gender he/she for verb agreement]`
+- **Cover letter:** `[~3–5 sentences; tone: direct / formal; if Russian first person: gender she/he for verb agreement]`
 - **PDF filename:** `[Must match PDF_FILENAME in generate_cv_unified.py, e.g. Your_Name_CV.pdf]`
 
 ## Core workflow
@@ -52,12 +52,12 @@ Replace bracketed placeholders with your values:
 
 ## Vacancy quality rules
 - Prioritize active vacancies; verify links before adding to the tracker.
-- Apply only the search filters defined in **User preferences** above.
+- Apply only the search filters defined in **User preferences** above — do **not** invent default role, geo, remote, or language filters from this template.
 - If **User preferences** are still placeholders, **ask the user** for filters before adding many vacancies.
-- **Location:** vacancies from any country, **including Russia**. Restrict by work format, not employer legal entity or HQ country.
-- **Remote (when user wants remote-only):** only **clearly fully remote** roles — full remote, “remote work” with no mandatory office. **Exclude:** hybrid with regular onsite, office-first, relocation, vague “remote-friendly” without explicit full remote.
-- For Russia-based employers — in `<#>-vacancy.md` verify remote is stated explicitly; flag ⚠️ if unclear.
-- **Language filter:** exclude vacancies that **require any language other than** English, Russian, or Portuguese (A2). EN-only, RU-only, EN+RU, or PT A2 are fine. Do not add roles that mandate e.g. Ukrainian, German, French, Czech, or Portuguese above A2 — unless the user overrides.
+- **Location:** follow **User preferences**. Unless the user restricts by country, vacancies from any country are fine; prefer filtering by **work format**, not employer legal entity or HQ country.
+- **Remote:** follow **User preferences**. If the user wants remote-only: only **clearly fully remote** roles — full remote, “remote work” with no mandatory office. **Exclude:** hybrid with regular onsite, office-first, relocation, vague “remote-friendly” without explicit full remote.
+- For employers where remote is ambiguous — in `<#>-vacancy.md` verify remote is stated explicitly; flag ⚠️ if unclear.
+- **Language filter:** follow **Language requirements for vacancies** in User preferences. Do not apply a hard-coded language list from this kit.
 - If the user explicitly provides a vacancy outside their filters, proceed and flag the risk clearly.
 
 ## Tracker discipline
